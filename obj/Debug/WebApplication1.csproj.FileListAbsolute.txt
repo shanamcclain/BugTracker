@@ -1,0 +1,7 @@
+C:\Users\Janis\Documents\Visual Studio 2017\projects\Bug Tracker\WebApplication1\bin\ApplicationInsights.config
+C:\Users\Janis\Documents\Visual Studio 2017\projects\Bug Tracker\WebApplication1\bin\WebApplication1.dll.config
+C:\Users\Janis\Documents\Visual Studio 2017\projects\Bug Tracker\WebApplication1\bin\WebApplication1.dll
+C:\Users\Janis\Documents\Visual Studio 2017\projects\Bug Tracker\WebApplication1\bin\WebApplication1.pdb
+C:\Users\Janis\Documents\Visual Studio 2017\projects\Bug Tracker\WebApplication1\obj\Debug\WebApplication1.csproj.CoreCompileInputs.cache
+C:\Users\Janis\Documents\Visual Studio 2017\projects\Bug Tracker\WebApplication1\obj\Debug\WebApplication1.dll
+C:\Users\Janis\Documents\Visual Studio 2017\projects\Bug Tracker\WebApplication1\obj\Debug\WebApplication1.pdb

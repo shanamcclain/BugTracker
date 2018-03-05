@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -7,8 +8,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BugTracker.Models;
+using BugTracker.Models.Helpers;
 
-namespace WebApplication1.Controllers
+namespace BugTracker.Controllers
 {
     public class ProjectsController : Controller
     {
@@ -36,12 +38,13 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Projects/Create
+        [Authorize(Roles = "Admin, ProjectManager")]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Projects/Create
+        // POST: Projects/Create/
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -59,6 +62,7 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Projects/Edit/5
+        [Authorize(Roles = "Admin, ProjectManager")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -123,5 +127,19 @@ namespace WebApplication1.Controllers
             }
             base.Dispose(disposing);
         }
+
+        ////GET: AddUserToProject
+        //public ActionResult AddUserToProject(string UserId, int ProjectId)
+        //{
+        //    ProjectHelper helper = new ProjectHelper();
+        //    helper.AddUserToProject(UserId, ProjectId);
+        //}
+
+        ////POST: AddUserToRole
+        //public ActionResult AddUserToProject(string UserId, int ProjectId)
+        //{
+        //    ProjectHelper helper = new ProjectHelper();
+        //    helper.AddUserToProject(UserId, ProjectId);
+        //}
     }
 }

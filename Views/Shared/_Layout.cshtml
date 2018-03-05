@@ -45,7 +45,8 @@
                         </div>
                         <a data-toggle="collapse" href="#collapseExample" class="collapsed">
                             <span>
-                                Chet Faker
+
+                                @*@Html.ActionLink("Hello " + User.Identity.GetName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })*@
                                 <b class="caret"></b>
                             </span>
                         </a>
@@ -344,6 +345,22 @@
                             </div>
                         </form>
                         <ul class="nav navbar-nav navbar-right">
+                            <li>
+                            @using Microsoft.AspNet.Identity
+                            @if (Request.IsAuthenticated)
+                            {
+                                using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                                }
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+
+                            }
+                                </li>
                             <li>
                                 <a href="#stats" class="dropdown-toggle btn-magnify" data-toggle="dropdown">
                                     <i class="ti-panel"></i>

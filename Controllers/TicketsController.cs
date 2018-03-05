@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using BugTracker.Models;
 
-namespace WebApplication1.Controllers
+namespace BugTracker.Controllers
 {
     public class TicketsController : Controller
     {

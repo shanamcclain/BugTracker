@@ -245,6 +245,37 @@ namespace BugTracker.Controllers
         }
 
         //
+        // GET: /Manage/ChangeName
+        public ActionResult ChangeName()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Manage/ChangeName
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ChangeName(ChangeNameViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var result = await UserManager.ChangePasswordAsync (User.Identity.GetUserId(), model.OldName, model.NewName);
+            if (result.Succeeded)
+            {
+                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                if (user != null)
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                }
+                return RedirectToAction("Index", new { Message = "Change Name was Successful" });
+            }
+            AddErrors(result);
+            return View(model);
+        }
+
+        //
         // GET: /Manage/SetPassword
         public ActionResult SetPassword()
         {

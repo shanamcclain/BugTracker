@@ -194,20 +194,19 @@
                         </div>
                     </li>
                     <li>
-                        <a data-toggle="collapse" href="#tablesExamples">
+                        <a data-toggle="collapse" href="">
                             <i class="ti-view-list-alt"></i>
                             <p>
-                                Table list
+                                Tickets
                                 <b class="caret"></b>
                             </p>
                         </a>
                         <div class="collapse" id="tablesExamples">
                             <ul class="nav">
                                 <li>
-                                    <a href="~/Assets/examples/tables/regular.html">
-                                        <span class="sidebar-mini">RT</span>
-                                        <span class="sidebar-normal">Regular Tables</span>
-                                    </a>
+                                    <span class="sidebar-mini">T</span>
+                                    <span class="sidebar-normal">Tickets</span>
+
                                 </li>
                                 <li>
                                     <a href="~/Assets/examples/tables/extended.html">
@@ -225,6 +224,7 @@
                                     <a href="~/Assets/examples/tables/datatables.net.html">
                                         <span class="sidebar-mini">DT</span>
                                         <span class="sidebar-normal">DataTables.net</span>
+
                                     </a>
                                 </li>
                             </ul>
@@ -346,21 +346,21 @@
                         </form>
                         <ul class="nav navbar-nav navbar-right">
                             <li>
-                            @using Microsoft.AspNet.Identity
-                            @if (Request.IsAuthenticated)
-                            {
-                                using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                                @using Microsoft.AspNet.Identity
+                                @if (Request.IsAuthenticated)
                                 {
-                                    @Html.AntiForgeryToken()
-                                    <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+                                else
+                                {
+                                    @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
 
-                            }
-                                </li>
+                                }
+                            </li>
                             <li>
                                 <a href="#stats" class="dropdown-toggle btn-magnify" data-toggle="dropdown">
                                     <i class="ti-panel"></i>
@@ -467,6 +467,7 @@
 <script src="~/Assets/assets/js/bootstrap-table.js"></script>
 <!--  Plugin for DataTables.net  -->
 <script src="~/Assets/assets/js/jquery.datatables.js"></script>
+@*<script type="text/javascript" charset="utf8" src="/DataTables/datatables.js"></script>*@
 <!--  Full Calendar Plugin    -->
 <script src="~/Assets/assets/js/fullcalendar.min.js"></script>
 <!-- Paper Dashboard PRO Core javascript and methods for Demo purpose -->

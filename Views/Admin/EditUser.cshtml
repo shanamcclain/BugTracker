@@ -1,0 +1,14 @@
+﻿@model BugTracker.Models.AdminUserViewModel
+<h2>@Model.User.FirstName @Model.User.LastName</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.User.Id)
+    <p>
+        @Html.ListBox("SelectedRoles", Model.Roles)
+    </p>
+    <input type="submit" class="btn btn-primary">
+}
+
+

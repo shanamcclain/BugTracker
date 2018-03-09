@@ -16,7 +16,7 @@ namespace BugTracker.Models.Helpers
             {
                 var prj = db.Projects.Find(ProjectId);
                 var usr = db.Users.Find(UserId);
-                prj.User.Add(usr);
+                prj.Users.Add(usr);
                 db.SaveChanges();
                 return true;
 
@@ -32,7 +32,7 @@ namespace BugTracker.Models.Helpers
             {
                 var prj = db.Projects.Find(ProjectId);
                 var usr = db.Users.Find(UserId);
-                prj.User.Remove(usr);
+                prj.Users.Remove(usr);
                 db.SaveChanges();
                 return true;
             }
@@ -50,7 +50,7 @@ namespace BugTracker.Models.Helpers
             try
             {
                 var usr = db.Users.Find(UserId);
-                var result = db.Projects.Find(ProjectId).User.Contains(usr);
+                var result = db.Projects.Find(ProjectId).Users.Contains(usr);
                 return result;
             }
             catch

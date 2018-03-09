@@ -11,7 +11,7 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.AssignedToUser.FirstName)
+            @Html.DisplayName("Assigned To")
         </dt>
 
         <dd>
@@ -19,7 +19,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.OwnerUser.FirstName)
+            @Html.DisplayName("Ticket Owner")
         </dt>
 
         <dd>
@@ -27,7 +27,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Project.Name)
+            @Html.DisplayName("Project")
         </dt>
 
         <dd>
@@ -35,7 +35,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.TicketPriority.Name)
+            @Html.DisplayName("Priority")
         </dt>
 
         <dd>
@@ -43,7 +43,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.TicketStatus.Name)
+            @Html.DisplayName("Status")
         </dt>
 
         <dd>
@@ -51,7 +51,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.TicketType.Name)
+            @Html.DisplayName("Type")
         </dt>
 
         <dd>
@@ -59,7 +59,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayName("Title")
         </dt>
 
         <dd>
@@ -67,7 +67,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayName("Description")
         </dt>
 
         <dd>
@@ -75,7 +75,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Created)
+            @Html.DisplayName("Created")
         </dt>
 
         <dd>
@@ -83,7 +83,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Updated)
+            @Html.DisplayName("Updated")
         </dt>
 
         <dd>
@@ -92,7 +92,72 @@
 
     </dl>
 </div>
+
+<div class="card card-chat">
+    <div class="card-header">
+        <h4 class="card-title">Comments</h4>
+        <p class="category"></p>
+    </div>
+    <div class="card-content">
+        <ol class="chat">
+            @foreach (var comment in Model.Comments)
+            {
+                <li class="other">
+                    <div class="avatar">
+                        <img src="~/Assets/assets/img/faces/face-2.jpg" alt="crash" />
+                    </div>
+                    <div class="msg">
+                        <p>
+                            @comment.Comment
+                        </p>
+                        <div class="card-footer">
+                            <i class="ti-check"></i>
+                            <h6>@comment.Created</h6>
+                        </div>
+                        <div>
+                            @Html.ActionLink("Edit", "Edit", "TicketComments", new { id = comment.Id }, null)
+                            <span>|</span>
+                            @Html.ActionLink("Delete", "Delete", "TicketComments", new { id = comment.Id }, null)
+                        </div>
+                    </div>
+                </li>
+            }
+        </ol>
+        <hr>
+        <div class="send-message">
+            @using (Html.BeginForm("Create", "TicketComments", FormMethod.Post))
+            {
+                if (User.Identity.IsAuthenticated)
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("TicketId", Model.Id)
+                    <div class="avatar">
+                        <img src="~/Assets/assets/img/faces/face-2.jpg" alt="crash" />
+                    </div>
+                    <input class="form-control textarea" type="text" placeholder="Type here!" name="Comment" />
+
+                    <div class="send-button">
+                        <button class="btn btn-primary btn-fill" type="submit">Send</button>
+                    </div>
+                }
+                else
+                {
+                    <p>You must log in to leave a comment.</p>
+                }
+            }
+        </div>
+    </div>
+</div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+@*<script type="text/javascript">
+            $(document).ready(function(){
+                demo.initStatsDashboard();
+                demo.initVectorMap();
+                demo.initCirclePercentage();
+
+            });
+    </script>*@

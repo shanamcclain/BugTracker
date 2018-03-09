@@ -6,7 +6,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create") | @Html.ActionLink("My Projects", "MyProjects")
 </p>
 <table class="table">
     <tr>
@@ -20,11 +20,20 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
+            <ul>
+                @foreach(var u in item.Users)
+                {
+                    <li>
+                        @u.FirstName @u.LastName
+                    </li>
+                }
+            </ul>
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
+            @Html.ActionLink("Edit Users", "EditUsers", new { id = item.Id })
         </td>
     </tr>
 }

@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Mvc;
 using BugTracker.Models;
 
@@ -132,5 +134,6 @@ namespace BugTracker.Controllers
             }
             base.Dispose(disposing);
         }
+
     }
 }

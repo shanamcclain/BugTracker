@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using BugTracker.Models;
 using BugTracker.Models.Helpers;
+using Microsoft.AspNet.Identity;
 
 namespace BugTracker.Controllers
 {
@@ -19,7 +20,23 @@ namespace BugTracker.Controllers
         // GET: Projects
         public ActionResult Index()
         {
+
             return View(db.Projects.ToList());
+        }
+
+        // GET: MyProjects
+        public ActionResult MyProjects()
+        {
+            var userid = User.Identity.GetUserId();
+            //var tickets = db.Tickets.Where(u => u.AssignedToUserId == userid);
+            //var allTickets = db.Projects.Where(p => p.PMID == userid).SelectMany(t => t.Tickets).ToList();
+            //var allTickets = db.Projects.Where(p => p.Users.Select(u=>u.Id).Contains(userid)).SelectMany(t => t.Tickets).ToList();
+            //var tickets = db.Tickets.Where(t => t.AssignedToUserId == userid || t.OwnerUserId == userid).ToList();
+
+            var allProjects = db.Projects.Where(p => p.Tickets.Select(t => t.AssignedToUserId)
+            .Contains(userid) || p.Tickets.Select(t => t.OwnerUserId).Contains(userid)).ToList();
+
+            return View(allProjects);
         }
 
         // GET: Projects/Details/5
@@ -128,18 +145,42 @@ namespace BugTracker.Controllers
             base.Dispose(disposing);
         }
 
-        ////GET: AddUserToProject
-        //public ActionResult AddUserToProject(string UserId, int ProjectId)
-        //{
-        //    ProjectHelper helper = new ProjectHelper();
-        //    helper.AddUserToProject(UserId, ProjectId);
-        //}
+        //GET: EditUsers
+        [Authorize(Roles = "Admin,ProjectManager")]
+        public ActionResult EditUsers(int? id)
+        {
+            ProjectViewModel vm = new ProjectViewModel();
+            var prj = db.Projects.Find(id);
+            vm.Project = prj;
+            var selected = prj.Users.ToList();
+            vm.Users = new MultiSelectList(db.Users, "Id", "FirstName", selected);
+            return View(vm);
+        }
 
-        ////POST: AddUserToRole
-        //public ActionResult AddUserToProject(string UserId, int ProjectId)
-        //{
-        //    ProjectHelper helper = new ProjectHelper();
-        //    helper.AddUserToProject(UserId, ProjectId);
-        //}
+        //POST: EditUsers
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,ProjectManager")]
+        public ActionResult EditUsers([Bind(Include = "Users,Project,SelectedUsers")] ProjectViewModel model)
+        {
+            ProjectHelper helper = new ProjectHelper();
+            foreach (var user in db.Users)
+            {
+                if (helper.IsUserOnProject(user.Id, model.Project.Id))
+                {
+                    helper.RemoveUserFromProject(user.Id, model.Project.Id);
+                }
+            }
+            foreach (var user in model.SelectedUsers)
+            {
+                if (!helper.IsUserOnProject(user, model.Project.Id))
+                {
+                    helper.AddUserToProject(user, model.Project.Id);
+                }
+            }
+
+            return RedirectToAction("Index");
+        }
+
     }
 }

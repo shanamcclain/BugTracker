@@ -7,18 +7,15 @@ namespace BugTracker.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-
-        [Required]
-        [Display(Name = "UserRoles")]
-        public string UserRoles { get; set; }
+        public string PMID { get; set; }
 
         //navigation property
         public virtual ICollection<Ticket> Tickets { get; set; }
-        public virtual ICollection<ApplicationUser> User { get; set; }
+        public virtual ICollection<ApplicationUser> Users { get; set; }
 
         public Project()
         {
-            User = new HashSet<ApplicationUser>();
+            Users = new HashSet<ApplicationUser>();
             Tickets = new HashSet<Ticket>();
         }
     }

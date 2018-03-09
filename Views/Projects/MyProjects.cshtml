@@ -1,0 +1,82 @@
+﻿@model IEnumerable<BugTracker.Models.Project>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>My Projects</h2>
+
+<table class="table">
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+                <ul>
+                    @foreach (var u in item.Users)
+                    {
+                        <li>
+                            @u.FirstName @u.LastName
+                        </li>
+                    }
+                </ul>
+                <ul>
+                    @foreach (var u in item.Tickets)
+                    {
+                        <li>
+                            @u.Title | @Html.ActionLink("Edit", "EditPm", "Tickets", new { id = item.Id }, null)
+                        </li>
+                    }
+                </ul>
+            </td>
+
+            @*<td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
+                    @Html.ActionLink("Edit Users", "EditUsers", new { id = item.Id })
+                </td>*@
+        </tr>
+    }
+
+</table>
+
+@*<h2>All Projects</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+                <ul>
+                    @foreach (var u in item.Users)
+                    {
+                        <li>
+                            @u.FirstName @u.LastName
+                        </li>
+                    }
+                </ul>
+            </td>
+            <td>
+
+                <p>
+                    @Html.ActionLink("Back to List", "Index")
+                </p>
+        </tr>
+    }
+
+</table>*@
+
+
+

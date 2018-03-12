@@ -94,8 +94,11 @@
                                                 @Html.DisplayFor(modelItem => item.Updated)
                                             </td>
                                             <td>
-                                                <a href="@Url.Action("Details","Tickets", new { id=item.Id})" class="btn btn-simple btn-info btn-icon like"><i class="ti-heart"></i></a>
-                                                <a href="@Url.Action("Edit", "Tickets", new { id=item.Id})" class="btn btn-simple btn-warning btn-icon edit"><i class="ti-pencil-alt"></i></a>
+                                                @if (User.IsInRole("Admin") || User.IsInRole("Submitter"))
+                                                {
+                                            <a href="@Url.Action("Details", "Tickets", new { id = item.Id })" class="btn btn-simple btn-info btn-icon like"><i class="ti-menu-alt"></i></a>
+                                            <a href="@Url.Action("Edit", "Tickets", new { id = item.Id })" class="btn btn-simple btn-warning btn-icon edit"><i class="ti-pencil-alt"></i></a>
+                                                }
                                             </td>
                                             <td>
                                                 @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

@@ -9,31 +9,75 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Ticket.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.FirstName)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ticket.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.FirstName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+<tr>
+    <th>
+        @Html.DisplayNameFor(model => model.Ticket.Title)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.User.FirstName)
+    </th>
+    <th></th>
+</tr>
 
-</table>
+    <div class="card card-chat">
+        <div class="card-header">
+            <h4 class="card-title">Notifications</h4>
+            <p class="category"></p>
+        </div>
+        <div class="card-content">
+            <ol class="chat">
+                @foreach (var notification in Model)
+                {
+                    <li class="other">
+                        <div class="avatar">
+                            <img src="~/Assets/assets/img/faces/face-2.jpg" alt="crash" />
+                        </div>
+                        <div class="msg">
+                            <p>
+                                @notification.Notification
+                            </p>
+                            <div class="card-footer">
+                                <i class="ti-check"></i>
+                                <h6>@notification.Created</h6>
+                            </div>
+                            <div>
+                                @Html.ActionLink("Edit", "Edit")
+                                <span>|</span>
+                                @Html.ActionLink("Delete", "Delete")
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ol>
+            <hr>
+            <div class="send-message">
+                @using (Html.BeginForm("Create", "TicketNotifications", FormMethod.Post))
+                {
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("TicketId")
+                        <div class="avatar">
+                            <img src="~/Assets/assets/img/faces/face-2.jpg" alt="crash" />
+                        </div>
+                        <input class="form-control textarea" type="text" placeholder="Type here!" name="notification" />
+
+                        <div class="send-button">
+                            <button class="btn btn-primary btn-fill" type="submit">Send</button>
+                        </div>
+                    }
+                    else
+                    {
+                        <p>You must log in to leave a comment.</p>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit") |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+
+

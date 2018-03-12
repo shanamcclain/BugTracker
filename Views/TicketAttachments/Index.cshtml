@@ -45,20 +45,12 @@
                                     @Html.DisplayFor(modelItem => item.User.FirstName)
                                 </td>
                                 <td>
-
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">
-                                        </label>
-                                        <div class="col-sm-6">
-                                            <input class="form-control"
-                                                   type="text"
-                                                   name="url"
-                                                   url="true" />
-                                        </div>
-                                        <div class="col-sm-4"><code>@Html.DisplayFor(modelItem => item.FileUrl)</code></div>
-                                    </div>
-
-                                    @*@Html.DisplayFor(modelItem => item.FileUrl)*@
+                                    @if (item.FileUrl != null)
+                                    {
+                                        <image class="image-responsive" src="@Url.Content(item.FileUrl)" style=" "></image>
+                                    }
+                                    @Html.DisplayFor(modelItem => item.FileUrl)
+                                   
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Description)
@@ -67,9 +59,12 @@
                                     @Html.DisplayFor(modelItem => item.Created)
                                 </td>
                                 <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                                    @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager") || User.IsInRole("Developer"))
+                                    {
+                                        <a href="@Url.Action("Details", "TicketAttachments", new { id = item.Id })" class="btn btn-simple btn-info btn-icon like"><i class="ti-menu-alt"></i></a>
+                                        <a href="@Url.Action("Edit", "TicketAttachments", new { id = item.Id })" class="btn btn-simple btn-warning btn-icon edit"><i class="ti-pencil-alt"></i></a>
+                                        <a href="@Url.Action("Delete", "TicketAttachments", new { id = item.Id })" class="btn btn-simple btn-danger btn-icon remove"><i class="ti-close"></i></a>
+                                    }
                                 </td>
                             </tr>
                         }
@@ -81,11 +76,11 @@
             </div>
         </form>
     </div>
-
-    <script type="text/javascript">
-        $().ready(function(){
-			$('#registerFormValidation').validate();
-            $('#loginFormValidation').validate();
-            $('#allInputsFormValidation').validate();
-        });
-    </script>
+    </div>
+    @*<script type="text/javascript">
+            $().ready(function () {
+                $('#registerFormValidation').validate();
+                $('#loginFormValidation').validate();
+                $('#allInputsFormValidation').validate();
+            });
+        </script>*@

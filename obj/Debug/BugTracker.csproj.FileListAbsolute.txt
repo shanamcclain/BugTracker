@@ -5,19 +5,10 @@ C:\Users\Janis\Documents\Visual Studio 2017\projects\Bug Tracker\WebApplication1
 C:\Users\Janis\Documents\Visual Studio 2017\projects\Bug Tracker\WebApplication1\obj\Debug\BugTracker.csproj.CoreCompileInputs.cache
 C:\Users\Janis\Documents\Visual Studio 2017\projects\Bug Tracker\WebApplication1\obj\Debug\WebApplication1.dll
 C:\Users\Janis\Documents\Visual Studio 2017\projects\Bug Tracker\WebApplication1\obj\Debug\WebApplication1.pdb
-C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\obj\Debug\BugTracker.csproj.CoreCompileInputs.cache
 C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\ApplicationInsights.config
 C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\WebApplication1.dll.config
 C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\WebApplication1.dll
 C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\WebApplication1.pdb
-C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\System.Net.Http.Formatting.dll
-C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\System.Web.Http.dll
-C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\System.Web.Http.WebHost.dll
-C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\System.Net.Http.Formatting.xml
-C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\System.Web.Http.xml
-C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\System.Web.Http.WebHost.xml
-C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\obj\Debug\WebApplication1.dll
-C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\obj\Debug\WebApplication1.pdb
 C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\Antlr3.Runtime.dll
 C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\EntityFramework.dll
 C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\EntityFramework.SqlServer.dll
@@ -44,7 +35,10 @@ C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\M
 C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\Newtonsoft.Json.dll
 C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\Owin.dll
+C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\System.Net.Http.Formatting.dll
 C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\System.Web.Helpers.dll
+C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\System.Web.Http.dll
+C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\System.Web.Http.WebHost.dll
 C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\System.Web.Mvc.dll
 C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\System.Web.Optimization.dll
 C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\System.Web.Razor.dll
@@ -53,6 +47,9 @@ C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\S
 C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\System.Web.WebPages.Razor.dll
 C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\WebGrease.dll
 C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\System.Net.Http.Formatting.xml
+C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\System.Web.Http.xml
+C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\System.Web.Http.WebHost.xml
 C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\System.Web.Helpers.xml
 C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\System.Web.Mvc.xml
 C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\System.Web.Optimization.xml
@@ -81,4 +78,7 @@ C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\M
 C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\Microsoft.AI.ServerTelemetryChannel.xml
 C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\Microsoft.AI.Web.xml
+C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\obj\Debug\BugTracker.csproj.CoreCompileInputs.cache
+C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\obj\Debug\WebApplication1.dll
+C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\obj\Debug\WebApplication1.pdb
 C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\obj\Debug\BugTracker.csprojResolveAssemblyReference.cache

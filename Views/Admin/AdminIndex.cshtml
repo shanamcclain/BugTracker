@@ -1,20 +1,22 @@
 ﻿
 @model IEnumerable<BugTracker.Models.UserRolesViewModel>
 
-    <h2>AdminUserView</h2>
+<h2>AdminUserView</h2>
 
 @*<ul>*@
-@foreach(var u in Model)
-{
+
+@foreach (var u in Model)
+{ 
     <p>
         @u.User.FirstName @u.User.LastName | @Html.ActionLink("Edit Roles", "EditUser", new { id = u.User.Id })
     </p>
     <ul>
-        @foreach(var role in u.Roles)
+        @foreach (var role in u.Roles)
         {
             <li>@role</li>
         }
     </ul>
 }
+
 
 @*</ul>*@

@@ -13,6 +13,7 @@ namespace BugTracker.Controllers
     public class AdminController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
+        [Authorize(Roles = "Admin")]
         public ActionResult AdminIndex()
         {
             List<UserRolesViewModel> model = new List<UserRolesViewModel>();
@@ -29,6 +30,7 @@ namespace BugTracker.Controllers
             return View(model);
         }
         //GET: EditUser
+        [Authorize(Roles = "Admin")]
         public ActionResult EditUser(string id)
         {
             var user = db.Users.Find(id);
@@ -45,6 +47,7 @@ namespace BugTracker.Controllers
         //POST:  EditUser
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult EditUser([Bind(Include = "User,Roles,SelectedRoles")] AdminUserViewModel model)
         {
             var user = db.Users.Find(model.User.Id);

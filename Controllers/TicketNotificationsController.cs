@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BugTracker.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BugTracker.Controllers
 {
@@ -17,7 +18,8 @@ namespace BugTracker.Controllers
         // GET: TicketNotifications
         public ActionResult Index()
         {
-            var ticketNotifications = db.Notifications.Include(t => t.Ticket).Include(t => t.User);
+            var userid = User.Identity.GetUserId();
+            var ticketNotifications = db.Notifications.Where(u => u.UserId == userid).Include(t => t.Ticket).Include(t => t.User);
             return View(ticketNotifications.ToList());
         }
 
@@ -49,10 +51,12 @@ namespace BugTracker.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,TicketId,UserId")] TicketNotification ticketNotification)
+        public ActionResult Create([Bind(Include = "Id,TicketId,Created,UserId,Notification")] TicketNotification ticketNotification)
         {
             if (ModelState.IsValid)
             {
+                ticketNotification.Created = DateTimeOffset.Now;
+                ticketNotification.UserId = User.Identity.GetUserId();
                 db.Notifications.Add(ticketNotification);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -85,7 +89,7 @@ namespace BugTracker.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,TicketId,UserId")] TicketNotification ticketNotification)
+        public ActionResult Edit([Bind(Include = "Id,TicketId,Created,UserId,Notification")] TicketNotification ticketNotification)
         {
             if (ModelState.IsValid)
             {

@@ -51,15 +51,21 @@ namespace BugTracker.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,TicketId,FileUrl,Description,Created,UserId")] TicketAttachment ticketAttachment)
+        public ActionResult Create([Bind(Include = "Id,TicketId,FileUrl,Description,Created,UserId")] TicketAttachment ticketAttachment, HttpPostedFileBase image)
         {
             if (ModelState.IsValid)
-            {
-                db.Attachments.Add(ticketAttachment);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
 
+                if (ImageUploadValidator.IsWebFriendlyImage(image))
+                {
+                    var fileName = Path.GetFileName(image.FileName);
+                    image.SaveAs(Path.Combine(Server.MapPath("~/Uploads/"),
+                    fileName)); ticketAttachment.FileUrl = "/Uploads/" + fileName;
+
+                    db.Attachments.Add(ticketAttachment);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            
             ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title", ticketAttachment.TicketId);
             ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", ticketAttachment.UserId);
             return View(ticketAttachment);

@@ -42,16 +42,21 @@ namespace BugTracker.Controllers
         // GET: Projects/Details/5
         public ActionResult Details(int? id)
         {
+            var userid = User.Identity.GetUserId();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Project project = db.Projects.Find(id);
-            if (project == null)
+            if (db.Projects.Find(id).Users.Select(u => u.Id).Contains(userid))
+            {
+                Project project = db.Projects.Find(id);
+                return View(project);
+            }
+            else if (!db.Projects.Find(id).Users.Select(u => u.Id).Contains(userid))
             {
                 return HttpNotFound();
             }
-            return View(project);
+            return View();
         }
 
         // GET: Projects/Create
@@ -66,6 +71,7 @@ namespace BugTracker.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, ProjectManager")]
         public ActionResult Create([Bind(Include = "Id,Name")] Project project)
         {
             if (ModelState.IsValid)

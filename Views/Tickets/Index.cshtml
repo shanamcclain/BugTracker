@@ -1,10 +1,7 @@
 ﻿@model IEnumerable<BugTracker.Models.Ticket>
 
-@{
-    ViewBag.Title = "Index";
-}
 
-<h2>Index</h2>
+<h2>All Tickets</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create") | @Html.ActionLink("My Tickets", "MyTickets") | @Html.ActionLink("Owned Tickets", "OwnedTickets")
@@ -26,6 +23,9 @@
                                 <thead>
                                     <tr>
                                         <th>
+                                            @Html.DisplayName("Title")
+                                        </th>
+                                        <th>
                                             @Html.DisplayName("Assigned To")
                                         </th>
                                         <th>
@@ -43,25 +43,25 @@
                                         <th>
                                             @Html.DisplayName("Type")
                                         </th>
-                                        <th>
-                                            @Html.DisplayName("Title")
-                                        </th>
-                                        <th>
+                                        @*<th>
                                             @Html.DisplayName("Description")
-                                        </th>
+                                        </th>*@
                                         <th>
                                             @Html.DisplayName("Created")
                                         </th>
                                         @*<th>
                                             @Html.DisplayName("Updated")
                                         </th>*@
-                                        <th></th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
                                         <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Title)
+                                            </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.AssignedToUser.FirstName)
                                             </td>
@@ -80,12 +80,9 @@
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.TicketType.Name)
                                             </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Title)
-                                            </td>
-                                            <td>
+                                            @*<td>
                                                 @Html.DisplayFor(modelItem => item.Description)
-                                            </td>
+                                            </td>*@
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.Created)
                                             </td>

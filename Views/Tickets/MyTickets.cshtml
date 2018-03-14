@@ -1,13 +1,7 @@
 ﻿@model IEnumerable<BugTracker.Models.Ticket>
 
-@{
-    ViewBag.Title = "Index";
-}
 
 <h2>My Tickets</h2>
-<p>
-    @Html.ActionLink("Back to List", "Index")
-</p>
 <div class="content">
     <div class="container-fluid">
         <div class="row">
@@ -45,16 +39,16 @@
                                         <th>
                                             @Html.DisplayName("Title")
                                         </th>
-                                        <th>
+                                        @*<th>
                                             @Html.DisplayName("Description")
-                                        </th>
+                                        </th>*@
                                         <th>
                                             @Html.DisplayName("Created")
                                         </th>
                                         @*<th>
                                             @Html.DisplayName("Updated")
                                         </th>*@
-                                        <th></th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -82,9 +76,9 @@
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.Title)
                                             </td>
-                                            <td>
+                                            @*<td>
                                                 @Html.DisplayFor(modelItem => item.Description)
-                                            </td>
+                                            </td>*@
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.Created)
                                             </td>
@@ -110,6 +104,9 @@
         </div> <!-- end row -->
     </div>
 </div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
 
 @section scripts{
     <script>

@@ -1,15 +1,18 @@
 ﻿@model BugTracker.Models.Ticket
 
-@{
-    ViewBag.Title = "Details";
-}
 
-<h2>Details</h2>
+<h2>Ticket Details</h2>
 
 <div>
-    <h4>Ticket</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Description")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
         <dt>
             @Html.DisplayName("Assigned To")
         </dt>
@@ -64,14 +67,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayName("Description")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
         </dd>
 
         <dt>

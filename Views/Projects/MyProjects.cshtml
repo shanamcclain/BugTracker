@@ -1,82 +1,111 @@
 ﻿@model IEnumerable<BugTracker.Models.Project>
 
 
-@{
-    ViewBag.Title = "Index";
-}
-
 <h2>My Projects</h2>
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="title"></h4>
+                <p class="category"></p>
+                <br>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="toolbar">
+                            <!--Here you can write extra buttons/actions for the toolbar-->
+                        </div>
+                        <div class="fresh-datatables">
+                            <table class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%" id="ticket1">
+                                <thead>
+                                    <tr>
+                                        <th>Project Name</th>
+                                        <th>Team Members</th>
+                                        <th>Tickets on Project</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <h4> @Html.DisplayFor(modelItem => item.Name)</h4>
+                                                </td>
+                                            <td>
+                                                <ul>
+                                                    @foreach (var u in item.Users)
+                                                    {
+                                                        <li>
+                                                            @u.FirstName @u.LastName
+                                                        </li>
+                                                    }
+                                                </ul>
+                                                </td>
+                                                <td>
+                                                <ul>
+                                                    @foreach (var u in item.Tickets)
+                                                    {
+                                                        <li>
+                                                            @u.Title | @Html.ActionLink("Edit", "EditPm", "Tickets", new { id = item.Id }, null)
+                                                        </li>
+                                                    }
+                                                </ul>
+                                            </td>
 
-<table class="table">
+                                            @*<td>
+                                                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
+                                                    @Html.ActionLink("Edit Users", "EditUsers", new { id = item.Id })
+                                                </td>*@
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div><!--  end card  -->
+            </div> <!-- end col-md-12 -->
+        </div> <!-- end row -->
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
 
+@section scripts{
+    <script>
+        $(document).ready(function () {
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-                <ul>
-                    @foreach (var u in item.Users)
-                    {
-                        <li>
-                            @u.FirstName @u.LastName
-                        </li>
-                    }
-                </ul>
-                <ul>
-                    @foreach (var u in item.Tickets)
-                    {
-                        <li>
-                            @u.Title | @Html.ActionLink("Edit", "EditPm", "Tickets", new { id = item.Id }, null)
-                        </li>
-                    }
-                </ul>
-            </td>
+            $('#ticket1').DataTable({
+                "pagingType": "full_numbers",
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                responsive: true,
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "Search records",
+                }
+            });
+            var table = $('#datatables').DataTable();
+            // Edit record
+            table.on('click', '.edit', function () {
+                $tr = $(this).closest('tr');
 
-            @*<td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
-                    @Html.ActionLink("Edit Users", "EditUsers", new { id = item.Id })
-                </td>*@
-        </tr>
-    }
+                var data = table.row($tr).data();
+                alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
+            });
 
-</table>
+            // Delete a record
+            table.on('click', '.remove', function (e) {
+                $tr = $(this).closest('tr');
+                table.row($tr).remove().draw();
+                e.preventDefault();
+            });
 
-@*<h2>All Projects</h2>
+            //Like record
+            table.on('click', '.like', function () {
+                alert('You clicked on Like button');
+            });
+        });
+    </script>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-                <ul>
-                    @foreach (var u in item.Users)
-                    {
-                        <li>
-                            @u.FirstName @u.LastName
-                        </li>
-                    }
-                </ul>
-            </td>
-            <td>
-
-                <p>
-                    @Html.ActionLink("Back to List", "Index")
-                </p>
-        </tr>
-    }
-
-</table>*@
-
-
-
+}

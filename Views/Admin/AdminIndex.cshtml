@@ -3,20 +3,91 @@
 
 <h2>AdminUserView</h2>
 
-@*<ul>*@
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="title"></h4>
+                <p class="category"></p>
+                <br>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="toolbar">
+                            <!--Here you can write extra buttons/actions for the toolbar-->
+                        </div>
+                        <div class="fresh-datatables">
+                            <table class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%" id="ticket1">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayName("DisplayName")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Role")
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var u in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @u.User.DisplayName | @Html.ActionLink("Edit Roles", "EditUser", new { id = u.User.Id }) @*| @Html.ActionLink("My Projects", "MyProjects", "Projects", new { id = u.User.Id }, null)*@
+                                            </td>
+                                            <td>
+                                                @foreach (var role in u.Roles)
+                                                {
+                                                    @role
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div><!--  end card  -->
+            </div> <!-- end col-md-12 -->
+        </div> <!-- end row -->
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
 
-@foreach (var u in Model)
-{ 
-    <p>
-        @u.User.FirstName @u.User.LastName | @Html.ActionLink("Edit Roles", "EditUser", new { id = u.User.Id })
-    </p>
-    <ul>
-        @foreach (var role in u.Roles)
-        {
-            <li>@role</li>
-        }
-    </ul>
+            $('#ticket1').DataTable({
+                "pagingType": "full_numbers",
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                responsive: true,
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "Search records",
+                }
+            });
+            var table = $('#datatables').DataTable();
+            // Edit record
+            table.on('click', '.edit', function () {
+                $tr = $(this).closest('tr');
+
+                var data = table.row($tr).data();
+                alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
+            });
+
+            // Delete a record
+            table.on('click', '.remove', function (e) {
+                $tr = $(this).closest('tr');
+                table.row($tr).remove().draw();
+                e.preventDefault();
+            });
+
+            //Like record
+            table.on('click', '.like', function () {
+                alert('You clicked on Like button');
+            });
+        });
+    </script>
+
 }
 
 
-@*</ul>*@
+

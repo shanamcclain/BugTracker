@@ -14,6 +14,7 @@ namespace BugTracker.Models
         public string LastName { get; set; }
         public string FullName { get; set; }
         public string DisplayName { get; set; }
+        public string ProfilePic { get; set; }
 
         public virtual ICollection<Project> Projects { get; set; }
         public virtual ICollection<TicketComment> Comments { get; set; }
@@ -37,6 +38,10 @@ namespace BugTracker.Models
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
             userIdentity.AddClaim(new Claim("Name", DisplayName));
+            if (ProfilePic != null)
+            {
+                userIdentity.AddClaim(new Claim("Image", ProfilePic));
+            }
             return userIdentity;
         }
     }

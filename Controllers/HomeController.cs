@@ -1,6 +1,9 @@
 ﻿using BugTracker.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -29,7 +32,39 @@ namespace BugTracker.Controllers
 
             return View();
         }
+        //GET: UserPage
         public ActionResult UserPage()
+        {
+            var userid = User.Identity.GetUserId();
+            var allProjects = db.Projects.Where(p => p.Tickets.Select(t => t.AssignedToUserId)
+           .Contains(userid) || p.Tickets.Select(t => t.OwnerUserId).Contains(userid)).ToList();
+
+            return View(allProjects);
+            //return View();
+        }
+        //POST: UserPage
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UserPage(string UserId, HttpPostedFileBase image)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            var user = db.Users.Find(UserId);
+
+            if (ImageUploadValidator.IsWebFriendlyImage(image))
+            {
+                var fileName = Path.GetFileName(image.FileName);
+                image.SaveAs(Path.Combine(Server.MapPath("~/Uploads/"), fileName));
+                user.ProfilePic = "/Uploads/" + fileName;
+            }
+            else
+            {
+                return View();
+            }
+
+            db.SaveChanges();
+            return RedirectToAction("UserPage");
+        }
+        public ActionResult LandingPage()
         {
             return View();
         }

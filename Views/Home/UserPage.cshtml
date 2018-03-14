@@ -1,4 +1,5 @@
 ﻿@using BugTracker.Models.Helpers
+@using Microsoft.AspNet.Identity
 
 <div class="content">
     <div class="container-fluid">
@@ -10,19 +11,10 @@
                     </div>
                     <div class="card-content">
                         <div class="author">
-                            <img class="avatar border-white" src="~/Assets/assets/img/faces/face-2.jpg" alt="..." />
+                            <img class="avatar border-white" src="@User.Identity.GetPic()" alt="..." />
                             <h4 class="card-title">
-                                @using Microsoft.AspNet.Identity
-                                @if (Request.IsAuthenticated)
-                                {
-                                    using (Html.BeginForm())
-                                    {
-                                        @Html.AntiForgeryToken()
-                                        @Html.ActionLink(User.Identity.GetName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-                                    }
-                                }
+                                        @*@Html.ActionLink(User.Identity.GetName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })*@
                                 <br />
-
                             </h4>
                         </div>
                         <p class="description text-center">
@@ -35,7 +27,9 @@
                     <div class="text-center">
                         <div class="row">
                             <div class="col-md-5 col-md-offset-1">
-                                <h5>5<br /><small>Projects</small></h5>
+                                <h5>
+                                    <br /><small>Projects</small>
+                                </h5>
                             </div>
                             <div class="col-md-5">
                                 <h5>3<br /><small>Tickets</small></h5>
@@ -105,7 +99,10 @@
                         <h4 class="card-title">Edit Profile</h4>
                     </div>
                     <div class="card-content">
-                        <form>
+                        @using (Html.BeginForm("UserPage", "Home", FormMethod.Post, new { enctype = "Multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <input type="text" name="UserId" hidden value="@User.Identity.GetUserId()"/>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -118,15 +115,7 @@
                                         <label for="exampleInputEmail1">Email address</label>
                                         @*<input type="email" class="form-control border-input" placeholder="Email">*@
                                         <div>
-                                            @using Microsoft.AspNet.Identity
-                                            @if (Request.IsAuthenticated)
-                                            {
-                                                using (Html.BeginForm())
-                                                {
-                                                    @Html.AntiForgeryToken()
-                                                    @Html.ActionLink(User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-                                                }
-                                            }
+                                            @*@Html.ActionLink(User.Identity.GetUserName(), "Index", "Manage", new { title = "Manage" }, null)*@
                                         </div>
                                     </div>
                                 </div>
@@ -137,33 +126,26 @@
                                         <label>First Name</label>
                                         @*<input type="text" class="form-control border-input" placeholder="Company" value="Chet">*@
                                         <div>
-                                            @using Microsoft.AspNet.Identity
-                                            @if (Request.IsAuthenticated)
-                                            {
-                                                using (Html.BeginForm())
-                                                {
-                                                    @Html.AntiForgeryToken()
-                                                    @Html.ActionLink(User.Identity.GetName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-                                                }
-                                            }
+                                                    @*@Html.ActionLink(User.Identity.GetName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })*@
                                         </div>
                                     </div>
                                 </div>
-                                @*<div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Last Name</label>
-                                        <input type="text" class="form-control border-input" placeholder="Last Name" value="Faker">
-                                    </div>
-                                </div>*@
+                                <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Upload Photo</label>
+
+                                            <input type="file" name="image" id="fileUpload" accept=".png,.jpg,.jpeg,.gif,.tif" />
+                                        </div>
+                                </div>
                             </div>
                             @*<div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Address</label>
-                                        <input type="text" class="form-control border-input" placeholder="Home Address" value="Melbourne, Australia">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Address</label>
+                                            <input type="text" class="form-control border-input" placeholder="Home Address" value="Melbourne, Australia">
+                                        </div>
                                     </div>
-                                </div>
-                            </div>*@
+                                </div>*@
                             @*<div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
@@ -185,33 +167,33 @@
                                     </div>
                                 </div>*@
                             @*<div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label></label>
-                                        <input type="text" class="form-control border-input" placeholder="Home Address" value="Melbourne, Australia">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label></label>
+                                            <input type="text" class="form-control border-input" placeholder="Home Address" value="Melbourne, Australia">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label></label>
-                                        <input type="text" class="form-control border-input" placeholder="City" value="Melbourne">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label></label>
+                                            <input type="text" class="form-control border-input" placeholder="City" value="Melbourne">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label></label>
-                                        <input type="text" class="form-control border-input" placeholder="Country" value="Australia">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label></label>
+                                            <input type="text" class="form-control border-input" placeholder="Country" value="Australia">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label></label>
-                                        <input type="number" class="form-control border-input" placeholder="ZIP Code">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label></label>
+                                            <input type="number" class="form-control border-input" placeholder="ZIP Code">
+                                        </div>
                                     </div>
-                                </div>
-                            </div>*@
+                                </div>*@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
@@ -223,10 +205,10 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-info btn-fill btn-wd">Update Profile</button>
+                                <input type="submit" class="btn btn-info btn-fill btn-wd" value="Update Profile" />
                             </div>
                             <div class="clearfix"></div>
-                        </form>
+                        }
                     </div>
                 </div>
             </div>

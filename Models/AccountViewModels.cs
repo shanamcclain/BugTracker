@@ -69,6 +69,17 @@ namespace BugTracker.Models
         public string DisplayName { get; set; }
 
         [Required]
+        [Display(Name = "FirstName")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "LastName")]
+        public string LastName { get; set; }
+
+        [Display(Name = "ProfilePic")]
+        public string ProfilePic { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

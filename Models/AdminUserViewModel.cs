@@ -38,6 +38,12 @@ namespace BugTracker.Models
 
     }
 
+    public class UserPageViewModel
+    {
+        public string ProfilePic { get; set; }
+        public string UserId { get; set; }
+    }
+
     public class ImageUploadValidator
     {
         public static bool IsWebFriendlyImage(HttpPostedFileBase file)

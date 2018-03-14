@@ -54,14 +54,14 @@ namespace BugTracker.Controllers
             UserRolesHelper helper = new UserRolesHelper();
             foreach (var role in db.Roles.Select(r => r.Name).ToList())
             {
-                if (helper.IsUserInRole(user.Id, role))
+                if (helper.IsUserInRole(user.DisplayName, role))
                 {
-                    helper.RemoveUserFromRole(user.Id, role);
+                    helper.RemoveUserFromRole(user.DisplayName, role);
                 }
             }
             foreach (var roleadd in model.SelectedRoles)
             {
-                helper.AddUserToRole(user.Id, roleadd);
+                helper.AddUserToRole(user.DisplayName, roleadd);
             }
 
             return RedirectToAction("AdminIndex");

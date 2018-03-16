@@ -16,9 +16,6 @@
     <!--  Paper Dashboard core CSS    -->
     <link href="~/Assets/assets/css/paper-dashboard.css" rel="stylesheet" />
 
-    <!--  CSS for Demo Purpose, don't include it in your project     -->
-    <link href="~/Assets/assets/css/demo.css" rel="stylesheet" />
-
     <link href="~/Assets/assets/css/custom.css" rel="stylesheet" />
 
     <!--  Fonts and icons     -->
@@ -46,15 +43,6 @@
                     <div class="info">
                         <div class="photo">
                             <img src="@User.Identity.GetPic()" />
-                            @*@foreach (var item in Model)
-                            {
-                                <p>
-                                @if (item.FileUrl != null)
-                                {
-                                    <image class="image-responsive" src="@Url.Content(item.FileUrl)" style=" "></image>
-                                }
-                                @Html.DisplayFor(modelItem => item.FileUrl)
-                                    </p>}*@
                         </div>
                         <a data-toggle="collapse" href="#collapseExample" class="collapsed">
                             <p>
@@ -92,7 +80,7 @@
                     </div>
                 </div>
                 <ul class="nav">
-                    <li class="active">
+                    <li>
                         <a data-toggle="collapse" href="#dashboardOverview" aria-expanded="true">
                             <i class="ti-panel"></i>
                             <p>
@@ -102,7 +90,7 @@
                         </a>
                         <div class="collapse in" id="dashboardOverview">
                             <ul class="nav">
-                                <li class="active">
+                                <li>
                                     <a href="@Url.Action("UserPage", "Home")">
                                         <span class="sidebar-mini">MP</span>
                                         <span class="sidebar-normal">My Profile</span>
@@ -294,9 +282,9 @@
             </div>
         </div>
 
-        <div class="main-panel">
+        <div class="main-panel" style=" background-color: #d9ffb3;">
             <nav class="navbar navbar-default">
-                <div class="container-fluid">
+                <div class="container-fluid" style=" background-color: #1f1f14;">
                     <div class="navbar-minimize">
                         <button id="minimizeSidebar" class="btn btn-fill btn-icon"><i class="ti-more-alt"></i></button>
                     </div>
@@ -362,7 +350,7 @@
                 <hr />
             </div>
             <footer class="footer">
-                <div class="container-fluid">
+                <div class="container-fluid" style=" background-color: #1f1f14;">
                     <nav class="pull-left">
                         @*<ul>
                                 <li>

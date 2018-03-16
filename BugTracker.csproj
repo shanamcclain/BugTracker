@@ -367,6 +367,9 @@
     <Content Include="Assets\assets\img\mask.png" />
     <Content Include="Assets\assets\img\ms-icon-70x70.png" />
     <Content Include="Assets\assets\img\new_logo.png" />
+    <Content Include="Assets\assets\img\photo1.jpg" />
+    <Content Include="Assets\assets\img\photo2.jpg" />
+    <Content Include="Assets\assets\img\photo3.jpg" />
     <Content Include="Assets\assets\img\tables\agenda.png" />
     <Content Include="Assets\assets\img\tables\evernote.png" />
     <Content Include="Assets\assets\img\tables\stylus.jpg" />

@@ -1,19 +1,19 @@
 ﻿@using BugTracker.Models.Helpers
 @using Microsoft.AspNet.Identity
 
-<div class="content">
+<div class="content" style=" background-color: #d9ffb3;">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-4 col-md-5">
                 <div class="card card-user">
                     <div class="image">
-                        <img src="~/Assets/assets/img/background.jpg" alt="..." />
+                        <img src="~/Assets/assets/img/photo3.jpg" alt="..." />
                     </div>
                     <div class="card-content">
                         <div class="author">
                             <img class="avatar border-white" src="@User.Identity.GetPic()" alt="..." />
                             <h4 class="card-title">
-                                        @*@Html.ActionLink(User.Identity.GetName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })*@
+                                @User.Identity.GetName()
                                 <br />
                             </h4>
                         </div>
@@ -96,7 +96,7 @@
             <div class="col-lg-8 col-md-7">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Edit Profile</h4>
+                        <h4 class="card-title">My Profile</h4>
                     </div>
                     <div class="card-content">
                         @using (Html.BeginForm("UserPage", "Home", FormMethod.Post, new { enctype = "Multipart/form-data" }))
@@ -115,7 +115,7 @@
                                         <label for="exampleInputEmail1">Email address</label>
                                         @*<input type="email" class="form-control border-input" placeholder="Email">*@
                                         <div>
-                                            @*@Html.ActionLink(User.Identity.GetUserName(), "Index", "Manage", new { title = "Manage" }, null)*@
+                                            @User.Identity.GetUserName()
                                         </div>
                                     </div>
                                 </div>
@@ -126,7 +126,7 @@
                                         <label>First Name</label>
                                         @*<input type="text" class="form-control border-input" placeholder="Company" value="Chet">*@
                                         <div>
-                                                    @*@Html.ActionLink(User.Identity.GetName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })*@
+                                            @User.Identity.GetName()
                                         </div>
                                     </div>
                                 </div>

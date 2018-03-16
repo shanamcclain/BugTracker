@@ -38,7 +38,7 @@ h1, h2, h3, h4, h5, h6
     background-color: transparent;
 }
 .main-header {
-    background: url(../img/luca-bravo-210213.jpg) no-repeat;
+    background: url(../assets/img/photo1.jpg) no-repeat;
     /*-webkit-filter: grayscale(100%);
     filter: grayscale(100%);*/
     background-size: cover;
@@ -157,6 +157,8 @@ h1, h2, h3, h4, h5, h6
 #cta-1
 {
 	padding: 40px 0px;
+    background-color: lightcyan;
+    opacity: .7;
 }
 .cta-info
 {
@@ -234,7 +236,7 @@ h3.txt-tl {
     background-position: center center;
 }
 .bg-image-2 {
-    background: url('../img/cta-banner.jpg') no-repeat center fixed;
+    background: url('../assets/img/photo1.jpg') no-repeat center fixed;
     -webkit-background-size: 100% auto;
     -moz-background-size: 100% auto;
     -o-background-size: 100% auto;

@@ -129,7 +129,7 @@ table.dataTable thead .sorting_desc_disabled {
 
     table.dataTable thead .sorting_asc_disabled:after,
     table.dataTable thead .sorting_desc_disabled:after {
-        color: #eee;
+        color: #e6ffcc;
     }
 
 div.dataTables_scrollHead table.dataTable {
@@ -531,7 +531,7 @@ div.dtr-modal {
     margin: auto;
     z-index: 102;
     overflow: auto;
-    background-color: #f5f5f7;
+    background-color: #e6ffcc;
     border: 1px solid black;
     border-radius: 0.5em;
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
@@ -549,7 +549,7 @@ div.dtr-modal-close {
     width: 22px;
     height: 22px;
     border: 1px solid #eaeaea;
-    background-color: #f9f9f9;
+    background-color: #e6ffcc;
     text-align: center;
     border-radius: 3px;
     cursor: pointer;
@@ -560,7 +560,7 @@ div.dtr-modal-close {
     &:hover
 
 {
-    background-color: #eaeaea;
+    background-color: #e6ffcc;
 }
 
 }

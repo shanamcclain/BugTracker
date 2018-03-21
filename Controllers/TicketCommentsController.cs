@@ -54,7 +54,7 @@ namespace BugTracker.Controllers
         {
             if (ModelState.IsValid)
             {
-                ticketComment.Created = DateTimeOffset.Now;
+                ticketComment.Created = DateTime.Now;
                 ticketComment.UserId = User.Identity.GetUserId();
                 db.Comments.Add(ticketComment);
                 db.SaveChanges();

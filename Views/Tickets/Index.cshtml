@@ -44,14 +44,14 @@
                                             @Html.DisplayName("Type")
                                         </th>
                                         @*<th>
-                                            @Html.DisplayName("Description")
-                                        </th>*@
+                                                @Html.DisplayName("Description")
+                                            </th>*@
                                         <th>
                                             @Html.DisplayName("Created")
                                         </th>
                                         @*<th>
-                                            @Html.DisplayName("Updated")
-                                        </th>*@
+                                                @Html.DisplayName("Updated")
+                                            </th>*@
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -81,23 +81,28 @@
                                                 @Html.DisplayFor(modelItem => item.TicketType.Name)
                                             </td>
                                             @*<td>
-                                                @Html.DisplayFor(modelItem => item.Description)
-                                            </td>*@
+                                                    @Html.DisplayFor(modelItem => item.Description)
+                                                </td>*@
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.Created)
                                             </td>
                                             @*<td>
-                                                @Html.DisplayFor(modelItem => item.Updated)
-                                            </td>*@
+                                                    @Html.DisplayFor(modelItem => item.Updated)
+                                                </td>*@
                                             <td>
                                                 @if (User.IsInRole("Admin"))
                                                 {
-                                            <a href="@Url.Action("Details", "Tickets", new { id = item.Id })" class="btn btn-simple btn-info btn-icon like"><i class="ti-menu-alt"></i></a>
-                                            <a href="@Url.Action("Edit", "Tickets", new { id = item.Id })" class="btn btn-simple btn-warning btn-icon edit"><i class="ti-pencil-alt"></i></a>
-                                            <a href="@Url.Action("Delete", "Tickets", new { id = item.Id })" class="btn btn-simple btn-danger btn-icon remove"><i class="ti-trash"></i></a>
+                                                    <a href="@Url.Action("Details", "Tickets", new { id = item.Id })" class="btn btn-simple btn-success btn-icon like"><i class="ti-menu-alt"></i></a>
+                                                    <a href="@Url.Action("Edit", "Tickets", new { id = item.Id })" class="btn btn-simple btn-warning btn-icon edit"><i class="ti-pencil-alt"></i></a>
+                                                    <a href="@Url.Action("Delete", "Tickets", new { id = item.Id })" class="btn btn-simple btn-danger btn-icon remove"><i class="ti-trash"></i></a>
+                                                }
+                                                @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
+                                                {
+                                                    <a href="@Url.Action("EditPm", "Tickets", new { id = item.Id })" class="btn btn-simple btn-primary btn-icon edit"><i class="ti-user"></i></a>
+
                                                 }
                                             </td>
-                                                
+
                                         </tr>
                                     }
                                 </tbody>
@@ -110,7 +115,7 @@
     </div>
 </div>
 @section scripts{
-<script>
+    <script>
         $(document).ready(function () {
 
             $('#ticket1').DataTable({
@@ -122,28 +127,28 @@
                     searchPlaceholder: "Search records",
                 }
             });
-        var table = $('#datatables').DataTable();
+            var table = $('#datatables').DataTable();
             // Edit record
             table.on('click', '.edit', function () {
-            $tr = $(this).closest('tr');
+                $tr = $(this).closest('tr');
 
-        var data = table.row($tr).data();
+                var data = table.row($tr).data();
                 alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
             });
 
             // Delete a record
             table.on('click', '.remove', function (e) {
-            $tr = $(this).closest('tr');
-        table.row($tr).remove().draw();
+                $tr = $(this).closest('tr');
+                table.row($tr).remove().draw();
                 e.preventDefault();
             });
 
             //Like record
             table.on('click', '.like', function () {
-            alert('You clicked on Like button');
+                alert('You clicked on Like button');
+            });
         });
-        });
-</script>
- 
+    </script>
+
 }
 

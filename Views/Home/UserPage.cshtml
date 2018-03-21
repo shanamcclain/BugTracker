@@ -1,4 +1,5 @@
-﻿@using BugTracker.Models.Helpers
+﻿@model BugTracker.Models.UserPageViewModel
+@using BugTracker.Models.Helpers
 @using Microsoft.AspNet.Identity
 
 <div class="content" style=" background-color: #d9ffb3;">
@@ -28,11 +29,13 @@
                         <div class="row">
                             <div class="col-md-5 col-md-offset-1">
                                 <h5>
-                                    <br /><small>Projects</small>
+                                    @Model.Projects<br /><small>Projects</small>
                                 </h5>
                             </div>
                             <div class="col-md-5">
-                                <h5>3<br /><small>Tickets</small></h5>
+                                <h5>
+                                    @Model.Tickets<br /><small>Tickets</small>
+                                </h5>
                             </div>
                             @*<div class="col-md-3">
                                     <h5>24,6$<br /><small>Spent</small></h5>
@@ -102,7 +105,7 @@
                         @using (Html.BeginForm("UserPage", "Home", FormMethod.Post, new { enctype = "Multipart/form-data" }))
                         {
                             @Html.AntiForgeryToken()
-                            <input type="text" name="UserId" hidden value="@User.Identity.GetUserId()"/>
+                            <input type="text" name="UserId" hidden value="@User.Identity.GetUserId()" />
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -112,8 +115,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Email address</label>
-                                        @*<input type="email" class="form-control border-input" placeholder="Email">*@
+                                        <label for="exampleInputEmail1">Email Address</label>
                                         <div>
                                             @User.Identity.GetUserName()
                                         </div>
@@ -131,79 +133,22 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Upload Photo</label>
-
-                                            <input type="file" name="image" id="fileUpload" accept=".png,.jpg,.jpeg,.gif,.tif" />
-                                        </div>
-                                </div>
-                            </div>
-                            @*<div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label>Address</label>
-                                            <input type="text" class="form-control border-input" placeholder="Home Address" value="Melbourne, Australia">
-                                        </div>
-                                    </div>
-                                </div>*@
-                            @*<div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label>City</label>
-                                            <input type="text" class="form-control border-input" placeholder="City" value="Melbourne">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label>Country</label>
-                                            <input type="text" class="form-control border-input" placeholder="Country" value="Australia">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label>Postal Code</label>
-                                            <input type="number" class="form-control border-input" placeholder="ZIP Code">
-                                        </div>
-                                    </div>
-                                </div>*@
-                            @*<div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label></label>
-                                            <input type="text" class="form-control border-input" placeholder="Home Address" value="Melbourne, Australia">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label></label>
-                                            <input type="text" class="form-control border-input" placeholder="City" value="Melbourne">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label></label>
-                                            <input type="text" class="form-control border-input" placeholder="Country" value="Australia">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label></label>
-                                            <input type="number" class="form-control border-input" placeholder="ZIP Code">
-                                        </div>
-                                    </div>
-                                </div>*@
-                            <div class="row">
-                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>About Me</label>
-                                        <textarea rows="5" class="form-control border-input" placeholder="Here can be your description" value="Mike">
-
-													</textarea>
+                                        <label>Upload Photo</label>
+                                        <input type="file" name="image" id="fileUpload" accept=".png,.jpg,.jpeg,.gif,.tif" />
                                     </div>
                                 </div>
                             </div>
+                            @*<div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>About Me</label>
+                                            <textarea rows="5" class="form-control border-input" placeholder="Here can be your description" value="Mike">
+
+                                                        </textarea>
+                                        </div>
+                                    </div>
+                                </div>*@
                             <div class="text-center">
                                 <input type="submit" class="btn btn-info btn-fill btn-wd" value="Update Profile" />
                             </div>

@@ -34,6 +34,7 @@ namespace BugTracker.Models.Helpers
             try
             {
                 var result = userManager.AddToRole(UserId, Role);
+                db.SaveChanges();
                 return result.Succeeded;
             }
             catch
@@ -48,6 +49,7 @@ namespace BugTracker.Models.Helpers
             try
             {
                 var result = userManager.RemoveFromRole(UserId, Role);
+                db.SaveChanges();
                 return result.Succeeded;
             }
             catch

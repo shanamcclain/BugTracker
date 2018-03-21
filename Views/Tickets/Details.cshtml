@@ -1,148 +1,208 @@
-﻿@model BugTracker.Models.Ticket
+﻿@using Microsoft.AspNet.Identity
+@using BugTracker.Models.Helpers
+@using BugTracker.Models;
+@model BugTracker.Models.Ticket
 
 
-<h2>Ticket Details</h2>
-
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayName("Description")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt>
-            @Html.DisplayName("Assigned To")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AssignedToUser.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayName("Ticket Owner")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.OwnerUser.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayName("Project")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Project.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayName("Priority")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TicketPriority.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayName("Status")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TicketStatus.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayName("Type")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TicketType.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayName("Title")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayName("Created")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Created)
-        </dd>
-
-        <dt>
-            @Html.DisplayName("Updated")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Updated)
-        </dd>
-
-    </dl>
-</div>
-
-<div class="card card-chat">
-    <div class="card-header">
-        <h4 class="card-title">Comments</h4>
-        <p class="category"></p>
-    </div>
-    <div class="card-content">
-        <ol class="chat">
-            @foreach (var comment in Model.Comments)
-            {
-                <li class="other">
-                    <div class="avatar">
-                        <img src="~/Assets/assets/img/faces/face-2.jpg" alt="crash" />
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            Ticket Details
+                        </h2>
                     </div>
-                    <div class="msg">
-                        <p>
-                            @comment.Comment
-                        </p>
-                        <div class="card-footer">
-                            <i class="ti-check"></i>
-                            <h6>@comment.Created</h6>
-                        </div>
-                        <div>
-                            @Html.ActionLink("Edit", "Edit", "TicketComments", new { id = comment.Id }, null)
-                            <span>|</span>
-                            @Html.ActionLink("Delete", "Delete", "TicketComments", new { id = comment.Id }, null)
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="left-vertical-tabs">
+                                <ul class="nav nav-stacked" role="tablist">
+                                    <li class="active">
+                                        <a href="#TicketTitle" role="tab" data-toggle="tab">
+                                            @Html.DisplayName("Ticket Title"):
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#Description" role="tab" data-toggle="tab">
+                                            @Html.DisplayName("Description"):
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#AssignedTo" role="tab" data-toggle="tab">
+                                            @Html.DisplayName("Assigned To"):
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#TicketOwner" role="tab" data-toggle="tab">
+                                            @Html.DisplayName("Ticket Owner"):
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#Project" role="tab" data-toggle="tab">
+                                            @Html.DisplayName("Project"):
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#Priority" role="tab" data-toggle="tab">
+                                            @Html.DisplayName("Priority"):
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#Status" role="tab" data-toggle="tab">
+                                            @Html.DisplayName("Status"):
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#Type" role="tab" data-toggle="tab">
+                                            @Html.DisplayName("Type"):
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#Created" role="tab" data-toggle="tab">
+                                            @Html.DisplayName("Created"):
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#Updated" role="tab" data-toggle="tab">
+                                            @Html.DisplayName("Updated"):
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="right-text-tabs">
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="TicketTitle">
+                                        <p>@Html.DisplayFor(model => model.Title)</p>
+                                    </div>
+                                    <div class="tab-pane" id="Description">
+                                        <p> @Html.DisplayFor(model => model.Description)</p>
+                                    </div>
+                                    <div class="tab-pane" id="AssignedTo">
+                                        <p>@Html.DisplayFor(model => model.AssignedToUser.FirstName)</p>
+                                    </div>
+                                    <div class="tab-pane" id="TicketOwner">
+                                        <p>@Html.DisplayFor(model => model.OwnerUser.FirstName)</p>
+                                    </div>
+                                    <div class="tab-pane" id="Project">
+                                        <p> @Html.DisplayFor(model => model.Project.Name)</p>
+                                    </div>
+                                    <div class="tab-pane" id="Priority">
+                                        <p>@Html.DisplayFor(model => model.TicketPriority.Name)</p>
+                                    </div>
+                                    <div class="tab-pane" id="Status">
+                                        <p>@Html.DisplayFor(model => model.TicketStatus.Name)</p>
+                                    </div>
+                                    <div class="tab-pane" id="Type">
+                                        <p>@Html.DisplayFor(model => model.TicketType.Name)</p>
+                                    </div>
+                                    <div class="tab-pane" id="Created">
+                                        <p>@Html.DisplayFor(model => model.Created)</p>
+                                    </div>
+                                    <div class="tab-pane" id="Updated">
+                                        <p>@Html.DisplayFor(model => model.Updated)</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </li>
-            }
-        </ol>
-        <hr>
-        <div class="send-message">
-            @using (Html.BeginForm("Create", "TicketComments", FormMethod.Post))
-            {
-                if (User.Identity.IsAuthenticated)
-                {
-                    @Html.AntiForgeryToken()
-                    @Html.Hidden("TicketId", Model.Id)
-                    <div class="avatar">
-                        <img src="~/Assets/assets/img/faces/face-2.jpg" alt="crash" />
+                </div>
+                <div class="card card-chat">
+                    <div class="card-header">
+                        <h4 class="card-title">Comments</h4>
+                        <p class="category"></p>
                     </div>
-                    <input class="form-control textarea" type="text" placeholder="Type here!" name="Comment" />
+                    <div class="card-content">
+                        <ol class="chat">
+                            @foreach (var comment in Model.Comments)
+                            {
+                                <li class="other">
+                                    <div class="avatar">
+                                        <img src="@User.Identity.GetPic()" alt="crash" />
+                                    </div>
+                                    <div class="msg">
+                                        <p>
+                                            @comment.Comment
+                                        </p>
+                                        <div class="card-footer">
+                                            <i class="ti-check"></i>
+                                            <h6>@comment.Created</h6>
+                                        </div>
+                                        <div>
+                                            @Html.ActionLink("Edit", "Edit", "TicketComments", new { id = comment.Id }, null)
+                                            <span>|</span>
+                                            @Html.ActionLink("Delete", "Delete", "TicketComments", new { id = comment.Id }, null)
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        </ol>
+                        <hr>
+                        <div class="send-message">
+                            @using (Html.BeginForm("Create", "TicketComments", FormMethod.Post))
+                            {
+                                if (User.Identity.IsAuthenticated)
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.Hidden("TicketId", Model.Id)
+                                    <div class="avatar">
+                                        <img src="@User.Identity.GetPic()" alt="crash" />
+                                    </div>
+                                    <input class="form-control textarea" type="text" placeholder="Type here!" name="Comment" />
 
-                    <div class="send-button">
-                        <button class="btn btn-primary btn-fill" type="submit">Send</button>
+                                    <div class="send-button">
+                                        <button class="btn btn-primary btn-fill" type="submit">Send</button>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <p>You must log in to leave a comment.</p>
+                                }
+                            }
+                        </div>
                     </div>
-                }
-                else
-                {
-                    <p>You must log in to leave a comment.</p>
-                }
-            }
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-7">
+                <div class="card card-timeline card-plain">
+                    <div class="card-header">
+                        <h2 class="card-title">Ticket History</h2>
+                    </div>
+                    <div class="card-content">
+                        <ul class="timeline">
+                            @foreach (var item in Model.Histories)
+                            {
+                                <li class="timeline-inverted">
+                                    <div class="timeline-badge info">
+                                        <i class="ti-check-box"></i>
+                                    </div>
+                                    <div class="timeline-panel">
+                                        <div class="timeline-heading">
+                                            <span class="label label-success">Update</span>
+                                        </div>
+                                        <div class="timeline-body">
+                                            <p>Title: @Html.DisplayFor(modelItem => item.Ticket.Title)</p>
+                                            <p>Property: @Html.DisplayFor(modelItem => item.Property)</p>
+                                            <p>Old Value: @Html.DisplayFor(modelItem => item.OldValue)</p>
+                                            <p>New Value: @Html.DisplayFor(modelItem => item.NewValue)</p>
+                                            <p>Updated by: @Html.DisplayFor(modelItem => item.User.FirstName)</p>
+                                        </div>
+                                        <h6>
+                                            <i class="ti-time"></i>
+                                            @Html.DisplayFor(modelItem => item.Changed)
+                                        </h6>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")

@@ -12,7 +12,7 @@ namespace BugTracker.Models
         public int TicketId { get; set; }
         public string FileUrl { get; set; }
         public string Description { get; set; }
-        public DateTimeOffset Created { get; set; }
+        public DateTime Created { get; set; }
         public string UserId { get; set; }
         //navigation property
         public virtual Ticket Ticket { get; set; }

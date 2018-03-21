@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Web.Mvc;
 using System.Data.Entity;
 
+
 namespace BugTracker.Controllers
 {
     public class AdminController : Controller
@@ -61,7 +62,10 @@ namespace BugTracker.Controllers
             }
             foreach (var roleadd in model.SelectedRoles)
             {
-                helper.AddUserToRole(user.DisplayName, roleadd);
+                if (!helper.IsUserInRole(user.Id, roleadd))
+                {
+                    helper.AddUserToRole(user.Id, roleadd);
+                }
             }
 
             return RedirectToAction("AdminIndex");

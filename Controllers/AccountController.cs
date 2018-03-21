@@ -92,6 +92,65 @@ namespace BugTracker.Controllers
             }
         }
 
+        // GET: /Account/Demo
+        [AllowAnonymous]
+        public ActionResult Demo(string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
+
+        //
+        // POST: /Account/Demo
+        //This is a POST method. We reach this by coming from a form... Actionlinks by default go to the GET method.
+        [AllowAnonymous]
+        public async Task<ActionResult> DemoLogin(string returnUrl, string type)
+        {
+            string Email = "";
+            string Password = "";
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, change to shouldLockout: true
+
+            switch (type)
+            {
+                case "Admin":
+                    Email = "shanamcclain7@gmail.com";
+                    Password = "Mcclain!1";
+                    break;
+                case "ProjectManager":
+                    Email = "manager@email.com";
+                    Password = "Mcclain1!";
+                    break;
+                case "Developer":
+                    Email = "developer@email.com";
+                    Password = "Mcclain1!";
+                    break;
+                case "Submitter":
+                    Email = "submitter@email.com";
+                    Password = "Mcclain1!";
+                    break;
+                default:
+                    Email = "submitter@email.com";
+                    Password = "Mcclain1!";
+                    break;
+            }
+            var result = await SignInManager.PasswordSignInAsync(Email, Password, false, shouldLockout: false);
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return RedirectToAction("UserPage", "Home");
+                //return RedirectToLocal(returnUrl);
+                case SignInStatus.LockedOut:
+                    return View("Lockout");
+                case SignInStatus.RequiresVerification:
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
+                case SignInStatus.Failure:
+                default:
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                    return RedirectToAction("Login");
+            }
+        }
+
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
@@ -154,13 +213,14 @@ namespace BugTracker.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, DisplayName = model.DisplayName, ProfilePic = model.ProfilePic };
                 var result = await UserManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+    
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
-                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                      var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                      await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 

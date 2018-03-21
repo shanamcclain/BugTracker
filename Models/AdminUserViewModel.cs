@@ -42,6 +42,8 @@ namespace BugTracker.Models
     {
         public string ProfilePic { get; set; }
         public string UserId { get; set; }
+        public int Tickets { get; set; }
+        public int Projects { get; set; }
     }
 
     public class ImageUploadValidator
@@ -69,4 +71,5 @@ namespace BugTracker.Models
             }
         }
     }
+
 }

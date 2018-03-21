@@ -62,6 +62,12 @@ namespace BugTracker.Models
         public bool RememberMe { get; set; }
     }
 
+    public class DemoViewModel
+    {
+        public string ReturnUrl { get; set; }
+        public string Type { get; set; }
+    }
+
     public class RegisterViewModel
     {
         [Required]

@@ -5,6 +5,7 @@
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.Project.Id)
+    @Html.HiddenFor(m => m.Project.Name)
     <p>
         @Html.ListBox("SelectedUsers", Model.Users)
     </p>

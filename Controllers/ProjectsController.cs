@@ -5,17 +5,21 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using BugTracker.Models;
 using BugTracker.Models.Helpers;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BugTracker.Controllers
 {
     public class ProjectsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private UserManager<ApplicationUser> userManager =
+           new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
 
         // GET: Projects
         public ActionResult Index()
@@ -72,7 +76,7 @@ namespace BugTracker.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin, ProjectManager")]
-        public ActionResult Create([Bind(Include = "Id,Name")] Project project)
+        public ActionResult Create([Bind(Include = "Id,Name,Description")] Project project)
         {
             if (ModelState.IsValid)
             {
@@ -105,7 +109,7 @@ namespace BugTracker.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name")] Project project)
+        public ActionResult Edit([Bind(Include = "Id,Name,Description")] Project project)
         {
             if (ModelState.IsValid)
             {
@@ -167,7 +171,7 @@ namespace BugTracker.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,ProjectManager")]
-        public ActionResult EditUsers([Bind(Include = "Users,Project,SelectedUsers")] ProjectViewModel model)
+        public async Task<ActionResult> EditUsers([Bind(Include = "Users,Project,SelectedUsers")] ProjectViewModel model, TicketNotification ticketNotification)
         {
             ProjectHelper helper = new ProjectHelper();
             foreach (var user in db.Users)
@@ -182,9 +186,24 @@ namespace BugTracker.Controllers
                 if (!helper.IsUserOnProject(user, model.Project.Id))
                 {
                     helper.AddUserToProject(user, model.Project.Id);
+                    //userManager.SendEmailAsync(user, "Notification", "You have been added to project " + model.Project.Name);
+                    var callbackUrl = Url.Action("Details", "Projects", new { id = model.Project.Id }, protocol: Request.Url.Scheme);
+                    try
+                    {
+                        EmailService ems = new EmailService();
+                        IdentityMessage msg = new IdentityMessage();
+                        ApplicationUser usr = db.Users.Find(user);
+                        msg.Body = "You have been assigned a new Ticket." + Environment.NewLine + "Please click the following link to view the details" + "<a href=\"" + callbackUrl + "\">NEW TICKET</a>";
+                        msg.Destination = usr.Email;
+                        msg.Subject = "BugTracker";
+                        await ems.SendMailAsync(msg);
+                    }
+                    catch (Exception ex)
+                    {
+                        await Task.FromResult(0);
+                    }
                 }
             }
-
             return RedirectToAction("Index");
         }
 

@@ -21,6 +21,7 @@
                                 <thead>
                                     <tr>
                                         <th>Project Name</th>
+                                        <th>Description</th>
                                         <th>Team Members</th>
                                         <th>Actions</th>
                                     </tr>
@@ -34,9 +35,13 @@
                                                 @Html.DisplayFor(modelItem => item.Name)
                                             </td>
                                             <td>
+                                                @Html.DisplayFor(modelItem => item.Description)
+                                            </td>
+                                            <td>
                                                 <ul>
                                                     @foreach (var u in item.Users)
                                                     {
+
                                                         <li>
                                                             @u.FirstName @u.LastName
                                                         </li>
@@ -46,9 +51,10 @@
                                             <td>
                                                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                                                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                                                @Html.ActionLink("Edit Users", "EditUsers", new { id = item.Id })
+                                                @Html.ActionLink("Edit Users", "EditUsers", new { id = item.Id }) |
                                                 @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager") || User.IsInRole("Developer"))
                                                 {
+                                                    @Html.ActionLink("Create Ticket", "Create", "Tickets", new { id = item.Id }, null)
                                                     <a href="@Url.Action("Delete", "Projects", new { id = item.Id })" class="btn btn-simple btn-danger btn-icon remove"><i class="ti-trash"></i></a>
                                                 }
                                             </td>

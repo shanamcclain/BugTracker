@@ -55,7 +55,7 @@ namespace BugTracker.Controllers
         {
             if (ModelState.IsValid)
             {
-                ticketNotification.Created = DateTimeOffset.Now;
+                ticketNotification.Created = DateTime.Now;
                 ticketNotification.UserId = User.Identity.GetUserId();
                 db.Notifications.Add(ticketNotification);
                 db.SaveChanges();

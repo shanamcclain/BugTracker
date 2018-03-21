@@ -58,6 +58,11 @@ namespace BugTracker.Migrations
                 role = new IdentityRole { Name = "ProjectManager" };
                 manager.Create(role);
             }
+            if (!context.Roles.Any(r => r.Name == "Unassigned"))
+            {
+                role = new IdentityRole { Name = "Unassigned" };
+                manager.Create(role);
+            }
 
             var userStore = new UserStore<ApplicationUser>(context);
             var userManager = new UserManager<ApplicationUser>(userStore);
@@ -132,6 +137,24 @@ namespace BugTracker.Migrations
                 userManager.AddToRoles(user.Id,
                     new string[] {
                         "Submitter"
+                    });
+            }
+            if (!context.Users.Any(u => u.Email == "unassigned@email.com"))
+            {
+                var user = new ApplicationUser
+                {
+                    UserName = "unassigned@email.com",
+                    Email = "unassigned@email.com",
+                    FirstName = "Unassigned",
+                    LastName = "Role",
+                    DisplayName = "UNASSIGNED"
+                };
+
+                userManager.Create(user, "Mcclain1!");
+
+                userManager.AddToRoles(user.Id,
+                    new string[] {
+                        "Unassigned"
                     });
             }
 

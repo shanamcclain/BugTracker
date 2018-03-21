@@ -649,6 +649,7 @@
     <Content Include="Views\Tickets\EditPm.cshtml" />
     <Content Include="Views\Home\UserPage.cshtml" />
     <Content Include="Views\Home\LandingPage.cshtml" />
+    <Content Include="Views\Account\Demo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

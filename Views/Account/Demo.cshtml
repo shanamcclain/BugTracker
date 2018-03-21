@@ -1,5 +1,5 @@
 ﻿@using BugTracker.Models
-@model LoginViewModel
+@model DemoViewModel
 
 @{ Layout = null;}
 <!doctype html>
@@ -44,42 +44,29 @@
     </nav>
     <div class="wrapper wrapper-full-page">
         <div class="full-page lock-page" data-image="/Assets/assets/img/photo1.jpg" />
-            @*<img src="~/Assets/assets/img/background/background-5.png" />*@
-            <!--   you can change the color of the filter page using: data-color="blue | azure | green | orange | red | purple" -->
-            <div class="content">
-
-                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {@Html.AntiForgeryToken()
+        <div class="content">
+            @*@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {*@
             <div class="card card-lock">
                 <div class="author">
                     <img class="avatar" src="~/Assets/assets/img/favicon-96x96.png" alt="...">
                 </div>
                 <h4></h4>
-                <div class="form-group">
-                    <input name="email" type="email" placeholder="Enter Email" class="form-control">
-                </div>
-                <div class="form-group">
-                    <input name="password" type="password" placeholder="Enter Password" class="form-control">
-                </div>
-                <div class="checkbox">
-                    @Html.CheckBoxFor(m => m.RememberMe)
-                    @Html.LabelFor(m => m.RememberMe)
-                </div>
-                <button type="submit" value="Log In" class="btn btn-wd">Log In</button>
+                <p>@Html.ActionLink("Admin Demo", "DemoLogin", new { returnUrl = ViewBag.ReturnUrl, type = "Admin" }, new { @class = "btn btn-wd" })</p>
+                <p>@Html.ActionLink("Project Manager Demo", "DemoLogin", new { ReturnUrl = ViewBag.ReturnUrl, type = "ProjectManager" }, new { @class = "btn btn-wd" })</p>
+                <p>@Html.ActionLink("Developer Demo", "DemoLogin", new { ReturnUrl = ViewBag.ReturnUrl, type = "Developer" }, new { @class = "btn btn-wd" })</p>
+                <p>@Html.ActionLink("Submitter Demo", "DemoLogin", new { ReturnUrl = ViewBag.ReturnUrl, type = "Submitter" }, new { @class = "btn btn-wd" })</p>
             </div>
-    }
-            </div>
-            <footer class="footer footer-transparent">
-                <div class="container">
-                    <div class="copyright">
-                        <span>
-                            @Html.ActionLink("Register as a new user", "Register") |
-                            @Html.ActionLink("Forgot your password?", "ForgotPassword") 
-                        </span>
-                    </div>
-                </div>
-            </footer>
+            @*  *@}
         </div>
+        <footer class="footer footer-transparent">
+            <div class="container">
+                <div class="copyright">
+                    <span>
+                    </span>
+                </div>
+            </div>
+        </footer>
     </div>
 </body>
 <!--   Core JS Files. Extra: TouchPunch for touch library inside jquery-ui.min.js   -->

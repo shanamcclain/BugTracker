@@ -16,6 +16,7 @@ namespace BugTracker.Models
         public ApplicationUser User { get; set; }
         public MultiSelectList Roles { get; set; }
         public string[] SelectedRoles { get; set; }
+
     }
 
     public class UserRolesViewModel
@@ -46,6 +47,13 @@ namespace BugTracker.Models
         public int Projects { get; set; }
     }
 
+    public class PMViewModel
+    {
+        public Project Project { get; set; }
+        public ApplicationUser PM { get; set; }
+
+    }
+
     public class ImageUploadValidator
     {
         public static bool IsWebFriendlyImage(HttpPostedFileBase file)
@@ -70,6 +78,30 @@ namespace BugTracker.Models
                 return false;
             }
         }
+    }
+
+    public class AdminViewModel
+    {
+        public List<Ticket> Tickets { get; set; }
+        public List<UserRolesViewModel> URVM { get; set; }
+        public List<PMViewModel> PVM { get; set; }
+    }
+
+    public class Contact
+    {
+        public int Id { get; set; }
+        [Required]
+        public string FirstName { get; set; }
+        [Required]
+        public string LastName { get; set; }
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+        [Required]
+        public string Message { get; set; }
+        public string Phone { get; set; }
+        [Required]
+        public DateTime Created { get; set; }
     }
 
 }

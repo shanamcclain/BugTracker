@@ -1,8 +1,8 @@
-﻿@model IEnumerable<BugTracker.Models.Project>
+﻿@model IEnumerable<BugTracker.Models.PMViewModel>
 
 <h2>All Projects</h2>
 <p>
-    @Html.ActionLink("Create New", "Create") | @Html.ActionLink("My Projects", "MyProjects")
+    @Html.ActionLink("My Projects", "MyProjects") | @Html.ActionLink("Create New Project", "Create")
 </p>
 <div class="content">
     <div class="container-fluid">
@@ -22,7 +22,7 @@
                                     <tr>
                                         <th>Project Name</th>
                                         <th>Description</th>
-                                        <th>Team Members</th>
+                                        <th>Project Manager</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -32,30 +32,25 @@
                                     {
                                         <tr>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.Name)
+                                                @Html.DisplayFor(modelItem => item.Project.Name)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.Description)
+                                                @Html.DisplayFor(modelItem => item.Project.Description)
                                             </td>
-                                            <td>
-                                                <ul>
-                                                    @foreach (var u in item.Users)
-                                                    {
 
-                                                        <li>
-                                                            @u.FirstName @u.LastName
-                                                        </li>
-                                                    }
-                                                </ul>
-                                            </td>
+                                            @if (item.PM == null)
+                                            {
+                                                <td></td>}
+                                            else
+                                            {
+                                                <td>@item.PM.FullName</td>}
+
                                             <td>
-                                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                                                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                                                @Html.ActionLink("Edit Users", "EditUsers", new { id = item.Id }) |
+                                                <a href="@Url.Action("Details", "Projects", new { id = item.Project.Id })" class="btn btn-simple btn-success btn-icon like"><i class="ti-menu-alt"></i></a>
+                                                <a href="@Url.Action("Edit", "Projects", new { id = item.Project.Id })" class="btn btn-simple btn-warning btn-icon edit"><i class="ti-pencil-alt"></i></a>
                                                 @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager") || User.IsInRole("Developer"))
                                                 {
-                                                    @Html.ActionLink("Create Ticket", "Create", "Tickets", new { id = item.Id }, null)
-                                                    <a href="@Url.Action("Delete", "Projects", new { id = item.Id })" class="btn btn-simple btn-danger btn-icon remove"><i class="ti-trash"></i></a>
+                                                    <a href="@Url.Action("Delete", "Projects", new { id = item.Project.Id })" class="btn btn-simple btn-danger btn-icon remove"><i class="ti-trash"></i></a>
                                                 }
                                             </td>
                                         </tr>

@@ -24,8 +24,16 @@ namespace BugTracker.Controllers
         // GET: Projects
         public ActionResult Index()
         {
+            List<PMViewModel> pm = new List<PMViewModel>();
+            foreach(var proj in db.Projects.ToList())
+            {
+                PMViewModel pmvm = new PMViewModel();
+                pmvm.Project = proj;
+                pmvm.PM = db.Users.Find(proj.PMID);
+                pm.Add(pmvm);
+            }
 
-            return View(db.Projects.ToList());
+            return View(pm);
         }
 
         // GET: MyProjects
@@ -80,6 +88,7 @@ namespace BugTracker.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 db.Projects.Add(project);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -204,6 +213,37 @@ namespace BugTracker.Controllers
                     }
                 }
             }
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult AssignPm(int? id)
+        {
+            UserRolesHelper helper = new UserRolesHelper();
+            var project = db.Projects.Find(id);
+            var users = helper.UsersInRole("ProjectManager").ToList();
+            ViewBag.PMID = new SelectList(users, "Id", "FirstName", project.PMID);
+            return View(project);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AssignPm(Project model)
+        {
+            var project = db.Projects.Find(model.Id);
+            project.PMID = model.PMID;
+            db.SaveChanges();
+
+            var callbackUrl = Url.Action("Details", "Projects", new { id = project.Id }, protocol: Request.Url.Scheme);
+            try
+            {
+                EmailService ems = new EmailService();
+                IdentityMessage msg = new IdentityMessage();
+                ApplicationUser user = db.Users.Find(model.PMID);
+                msg.Body = "You have been assigned a new Project." + Environment.NewLine + "Please click the following link to view the details  " + "<a href=\"" + callbackUrl + "\">NEW PROJECT</a>";
+                msg.Destination = user.Email;
+                msg.Subject = "BugTracker";
+                await ems.SendMailAsync(msg);
+            }
+            catch (Exception ex) { await Task.FromResult(0); }
             return RedirectToAction("Index");
         }
 

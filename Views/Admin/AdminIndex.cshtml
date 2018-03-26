@@ -1,15 +1,14 @@
-﻿
-@model IEnumerable<BugTracker.Models.UserRolesViewModel>
+﻿@model IEnumerable<BugTracker.Models.UserRolesViewModel>
 
-<h2>AdminUserView</h2>
+
+
+<h2>Admin Page</h2>
 
 <div class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-6 col-md-6">
-                <h4 class="title"></h4>
-                <p class="category"></p>
-                <br>
+                <h4 class="title">Edit Member Roles</h4>
                 <div class="card">
                     <div class="card-content">
                         <div class="toolbar">
@@ -25,6 +24,9 @@
                                         <th>
                                             @Html.DisplayName("Role")
                                         </th>
+                                        <th>
+                                            Actions
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -32,13 +34,16 @@
                                     {
                                         <tr>
                                             <td>
-                                                @u.User.DisplayName | @Html.ActionLink("Edit Roles", "EditUser", new { id = u.User.Id }) @*| @Html.ActionLink("My Projects", "MyProjects", "Projects", new { id = u.User.Id }, null)*@
+                                                @u.User.DisplayName 
                                             </td>
                                             <td>
                                                 @foreach (var role in u.Roles)
                                                 {
                                                     @role
                                                 }
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink("Edit Roles", "EditUser", new { id = u.User.Id })
                                             </td>
                                         </tr>
                                     }
@@ -47,10 +52,118 @@
                         </div>
                     </div>
                 </div><!--  end card  -->
+            </div>
+            <div class="col-lg-6 col-md-6">
+                @*<h4 class="title">All Projects</h4>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="toolbar">*@
+                            <!--Here you can write extra buttons/actions for the toolbar-->
+                        @*</div>
+                        <div class="fresh-datatables">
+                            <table class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%" id="ticket1">
+                                <thead>
+                                    <tr>
+                                        <th>Project Name</th>
+                                        <th>Description</th>*@
+                                        @*<th>Actions</th>*@
+                                    @*</tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Project.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Project.Description)
+                                            </td>
+                                        </tr>
+                                    }*@
+                                @*</tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+            @*<div class="col-lg-10 col-md-6">
+                <h4 class="title">All Tickets</h4>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="toolbar">*@
+                            <!--Here you can write extra buttons/actions for the toolbar-->
+                        @*</div>
+                        <div class="fresh-datatables">
+                            <table class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%" id="ticket1">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayName("Title")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Assigned To")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Ticket Owner")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Project")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Priority")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Status")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Type")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Created")
+                                        </th>*@
+                                        @*<th>Actions</th>*@
+                                    @*</tr>
+                                </thead>
+                                <tbody>*@
+                                    @*@foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Tickets.Title)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Tickets.AssignedToUser.FirstName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Tickets.OwnerUser.FirstName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Tickets.Project.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Tickets.TicketPriority.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Tickets.TicketStatus.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Tickets.TicketType.Name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Tickets.Created)
+                                            </td>
+                                        </tr>
+                                    }*@
+                                @*</tbody>
+                            </table>*@
+                        </div>
+                    </div>
+                </div>
             </div> <!-- end col-md-12 -->
-        </div> <!-- end row -->
-    </div>
-</div>
+        @*</div>*@ <!-- end row -->
+    @*</div>
+</div>*@
 @section scripts{
     <script>
         $(document).ready(function () {
@@ -88,6 +201,9 @@
     </script>
 
 }
+
+
+
 
 
 

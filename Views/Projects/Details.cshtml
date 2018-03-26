@@ -1,26 +1,95 @@
 ﻿@model BugTracker.Models.Project
 
-@{
-    ViewBag.Title = "Details";
-}
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            Project Details
+                        </h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="left-vertical-tabs">
+                                <ul class="nav nav-stacked" role="tablist">
+                                    <li>
+                                        <a href="#Name" role="tab" data-toggle="tab">
+                                            @Html.DisplayNameFor(model => model.Name):
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#Description" role="tab" data-toggle="tab">
+                                            @Html.DisplayNameFor(model => model.Description):
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="right-text-tabs">
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="Name">
+                                        @Html.DisplayFor(model => model.Name)
+                                    </div>
+                                    <div class="tab-pane" id="Description">
+                                        @Html.DisplayFor(model => model.Description)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            Tickets on Project
+                        </h2>
+                    </div>
+                    <div class="card-content">
+                        @foreach (var u in Model.Tickets)
+                        {
+                            <li>
+                                @u.Title
+                            </li>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-7">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Team Members on Project</h2>
+                    </div>
+                    <div class="card-content">
 
-<h2>Details</h2>
+                        @foreach (var u in Model.Users)
+                        {
 
-<div>
-    <h4>Project</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-    </dl>
+                            <li>
+                                @u.FirstName @u.LastName
+                            </li>
+                        }
+                        @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
+                        {
+                            @Html.ActionLink("Edit Users", "EditUsers", new { id = Model.Id })
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
 <p>
+    @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
+    {
+        @Html.ActionLink("Create New Ticket", "Create", "Tickets", new { id = Model.Id }, null)
+    } |
+    @if (User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Assign Pm", "AssignPm", "Projects", new { id = Model.Id }, null)
+    } |
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "MyProjects", "Projects", new { id = Model.Id }, null)
 </p>

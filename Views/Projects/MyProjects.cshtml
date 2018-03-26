@@ -19,8 +19,9 @@
                                 <thead>
                                     <tr>
                                         <th>Project Name</th>
-                                        <th>Team Members</th>
-                                        <th>Tickets on Project</th>
+                                        @*<th>Team Members</th>
+                                        <th>Tickets on Project</th>*@
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -29,8 +30,8 @@
                                         <tr>
                                             <td>
                                                 <h4> @Html.DisplayFor(modelItem => item.Name)</h4>
-                                                </td>
-                                            <td>
+                                            </td>
+                                            @*<td>
                                                 <ul>
                                                     @foreach (var u in item.Users)
                                                     {
@@ -39,8 +40,8 @@
                                                         </li>
                                                     }
                                                 </ul>
-                                                </td>
-                                                <td>
+                                            </td>
+                                            <td>
                                                 <ul>
                                                     @foreach (var u in item.Tickets)
                                                     {
@@ -49,6 +50,9 @@
                                                         </li>
                                                     }
                                                 </ul>
+                                            </td>*@
+                                            <td>
+                                                <a href="@Url.Action("Details", "Projects", new { id = item.Id })" class="btn btn-simple btn-success btn-icon like"><i class="ti-menu-alt"></i></a>
                                             </td>
 
                                             @*<td>

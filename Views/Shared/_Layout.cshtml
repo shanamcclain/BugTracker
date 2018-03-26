@@ -116,10 +116,13 @@
                         <div class="collapse" id="componentsExamples">
                             <ul class="nav">
                                 <li>
-                                    <a href="@Url.Action("AdminIndex", "Admin")">
-                                        <span class="sidebar-mini">A</span>
-                                        <span class="sidebar-normal">Admin Index</span>
-                                    </a>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                <a href="@Url.Action("AdminIndex", "Admin")">
+                                    <span class="sidebar-mini">A</span>
+                                    <span class="sidebar-normal">Admin Index</span>
+                                </a>
+                                    }
                                 </li>
                             </ul>
                         </div>
@@ -184,10 +187,10 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="@Url.Action("OwnedTickets", "Tickets")">
-                                        <span class="sidebar-mini">OT</span>
-                                        <span class="sidebar-normal">Owned Tickets</span>
-                                    </a>
+                                <a href="@Url.Action("OwnedTickets", "Tickets")">
+                                    <span class="sidebar-mini">OT</span>
+                                    <span class="sidebar-normal">Owned Tickets</span>
+                                </a>
                                 </li>
                             </ul>
                         </div>
@@ -310,32 +313,32 @@
                             </li>
                             <li>
                                 <a href="#stats" class="dropdown-toggle btn-magnify" data-toggle="dropdown">
-                                    <i class="ti-panel"></i>
-                                    <p>Stats</p>
+                                    @*<i class="ti-panel"></i>*@
+                                    @*<p>Stats</p>*@
                                 </a>
                             </li>
                             <li class="dropdown">
                                 <a href="#notifications" class="dropdown-toggle btn-rotate" data-toggle="dropdown">
-                                    <i class="ti-bell"></i>
+                                    @*<i class="ti-bell"></i>*@
                                     <span class="notification"> @*5*@ </span>
                                     <p class="hidden-md hidden-lg">
-                                        Notifications
+                                        @*Notifications*@
                                         <b class="caret"></b>
                                     </p>
                                 </a>
-                                <ul class="dropdown-menu">
+                                @*<ul class="dropdown-menu">
                                     <li><a href="@Url.Action("Index", "TicketNotifications")">Notification 1</a></li>
                                     <li><a href="#not2">Notification 2</a></li>
                                     <li><a href="#not3">Notification 3</a></li>
                                     <li><a href="#not4">Notification 4</a></li>
                                     <li><a href="#another">Another notification</a></li>
-                                </ul>
+                                </ul>*@
                             </li>
                             <li>
                                 <a href="#settings" class="btn-rotate">
-                                    <i class="ti-settings"></i>
+                                    @*<i class="ti-settings"></i>*@
                                     <p class="hidden-md hidden-lg">
-                                        Settings
+                                        @*Settings*@
                                     </p>
                                 </a>
                             </li>

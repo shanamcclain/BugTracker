@@ -650,6 +650,7 @@
     <Content Include="Views\Home\UserPage.cshtml" />
     <Content Include="Views\Home\LandingPage.cshtml" />
     <Content Include="Views\Account\Demo.cshtml" />
+    <Content Include="Views\Projects\AssignPm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

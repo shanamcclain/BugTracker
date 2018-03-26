@@ -484,7 +484,7 @@ namespace BugTracker.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("UserPage", "Home");
+            return RedirectToAction("LandingPage", "Home");
         }
 
         //

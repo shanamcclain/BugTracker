@@ -55,9 +55,9 @@ namespace BugTracker.Controllers
             UserRolesHelper helper = new UserRolesHelper();
             foreach (var role in db.Roles.Select(r => r.Name).ToList())
             {
-                if (helper.IsUserInRole(user.DisplayName, role))
+                if (helper.IsUserInRole(user.Id, role))
                 {
-                    helper.RemoveUserFromRole(user.DisplayName, role);
+                    helper.RemoveUserFromRole(user.Id, role);
                 }
             }
             foreach (var roleadd in model.SelectedRoles)
@@ -69,6 +69,44 @@ namespace BugTracker.Controllers
             }
 
             return RedirectToAction("AdminIndex");
+        }
+        // GET: Projects
+        public ActionResult AllProjects()
+        {
+            AdminViewModel avm = new AdminViewModel();
+            //Populate project/pm view model
+            List<PMViewModel> pm = new List<PMViewModel>();
+            foreach (var proj in db.Projects.ToList())
+            {
+                PMViewModel pmvm = new PMViewModel();
+                pmvm.Project = proj;
+                pmvm.PM = db.Users.Find(proj.PMID);
+                pm.Add(pmvm);
+            }
+            avm.PVM = pm;
+            //Populate tickets view model
+            avm.Tickets = db.Tickets.ToList();
+            //Populate 
+            List<UserRolesViewModel> model = new List<UserRolesViewModel>();
+            UserRolesHelper helper = new UserRolesHelper();
+
+            var users = db.Users.ToList();
+            foreach (var u in users)
+            {
+                var urvm = new UserRolesViewModel();
+                urvm.User = u;
+                urvm.Roles = helper.ListUserRoles(u.Id);
+                model.Add(urvm);
+            }
+            avm.URVM = model;
+
+            return View(db.Projects.ToList());
+        }
+        // GET: Tickets
+        public ActionResult AllTickets()
+        {
+            var tickets = db.Tickets.Include(t => t.AssignedToUser).Include(t => t.OwnerUser).Include(t => t.Project).Include(t => t.TicketPriority).Include(t => t.TicketStatus).Include(t => t.TicketType);
+            return View(tickets.ToList());
         }
 
     }

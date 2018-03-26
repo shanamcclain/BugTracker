@@ -1,0 +1,48 @@
+﻿@model BugTracker.Models.Project
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-10 col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            Assign Project Manager
+                        </h2>
+                        @using (Html.BeginForm("AssignPm", "Projects", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(m => m.Id)
+                            <div class="form-horizontal">
+                                <hr /> @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(model => model.Id)
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.PMID, "ProjectManagers", new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.DropDownList("PMID", null, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.PMID, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Save" class="btn btn-default" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <br/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Details", "Projects", new { id = Model.Id }, null)
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

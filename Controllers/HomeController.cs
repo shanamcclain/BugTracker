@@ -31,9 +31,8 @@ namespace BugTracker.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            Contact model = new Contact();
+            return View(model);
         }
         //GET: UserPage
         public ActionResult UserPage()

@@ -45,6 +45,7 @@ namespace BugTracker.Controllers
 
             vm.Projects = allProjects.Count();
             vm.Tickets = tickets.Count();
+            vm.AllMembers = db.Users.ToList();
 
             return View(vm);
             //return View();

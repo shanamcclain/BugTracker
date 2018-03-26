@@ -45,6 +45,7 @@ namespace BugTracker.Models
         public string UserId { get; set; }
         public int Tickets { get; set; }
         public int Projects { get; set; }
+        public List<ApplicationUser> AllMembers { get; set; }
     }
 
     public class PMViewModel

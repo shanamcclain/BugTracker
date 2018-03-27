@@ -22,6 +22,7 @@ namespace BugTracker.Controllers
            new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
 
         // GET: Projects
+        [Authorize(Roles = "Admin, ProjectManager")]
         public ActionResult Index()
         {
             List<PMViewModel> pm = new List<PMViewModel>();
@@ -118,6 +119,7 @@ namespace BugTracker.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, ProjectManager")]
         public ActionResult Edit([Bind(Include = "Id,Name,Description")] Project project)
         {
             if (ModelState.IsValid)

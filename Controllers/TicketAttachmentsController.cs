@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
 using BugTracker.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BugTracker.Controllers
 {
@@ -61,6 +62,9 @@ namespace BugTracker.Controllers
                     image.SaveAs(Path.Combine(Server.MapPath("~/Uploads/"),fileName));
                     ticketAttachment.FileUrl = "/Uploads/" + fileName;
 
+                    //ticketAttachment.TicketId = db.Tickets.Find.();
+                    ticketAttachment.Created = DateTime.Now;
+                    ticketAttachment.UserId = User.Identity.GetUserId();
                     db.Attachments.Add(ticketAttachment);
                     db.SaveChanges();
                     return RedirectToAction("Index");

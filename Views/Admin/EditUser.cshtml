@@ -1,15 +1,30 @@
 ﻿@model BugTracker.Models.AdminUserViewModel
-<h2>@Model.User.FirstName @Model.User.LastName</h2>
 
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    @Html.HiddenFor(m => m.User.Id)
-    <p>
-        @Html.ListBox("SelectedRoles", Model.Roles)
-    </p>
-    <input type="submit" class="btn btn-primary">
-}
-
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Change User's Role</h2>
+                        <h4>User's Name: @Model.User.DisplayName</h4>
+                        @*<h4>User's Current Role: </h4>*@
+                    </div>
+                    <div class="card-content">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(m => m.User.Id)
+                            <p>
+                                @Html.ListBox("SelectedRoles", Model.Roles)
+                            </p>
+                            <input type="submit" class="btn btn-primary">
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 

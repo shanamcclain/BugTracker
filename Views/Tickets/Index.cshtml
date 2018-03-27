@@ -3,9 +3,9 @@
 
 <h2>All Tickets</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create") | @Html.ActionLink("My Tickets", "MyTickets") | @Html.ActionLink("Owned Tickets", "OwnedTickets")
-</p>
+    @if (User.IsInRole("Admin") || User.IsInRole("Submitter"))
+    {@Html.ActionLink("Create New", "Create")} 
+
 <div class="content">
     <div class="container-fluid">
         <div class="row">

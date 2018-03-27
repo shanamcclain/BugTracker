@@ -68,6 +68,11 @@
                                             @Html.DisplayName("Updated"):
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="#Attachment" role="tab" data-toggle="tab">
+                                            @Html.DisplayName("Add Attachment"):
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="right-text-tabs">
@@ -77,7 +82,7 @@
                                         <p>@Html.DisplayFor(model => model.Title)</p>
                                     </div>
                                     <div class="tab-pane" id="Description">
-                                        <p> @Html.DisplayFor(model => model.Description)</p>
+                                        <p> @Html.Raw(Model.Description)</p>
                                     </div>
                                     <div class="tab-pane" id="AssignedTo">
                                         <p>@Html.DisplayFor(model => model.AssignedToUser.FirstName)</p>
@@ -103,100 +108,136 @@
                                     <div class="tab-pane" id="Updated">
                                         <p>@Html.DisplayFor(model => model.Updated)</p>
                                     </div>
+                                    <div class="tab-pane" id="Attachment">
+                                        <p><a href="@Url.Action("Create", "TicketAttachments", new { id = Model.Id })" class="btn btn-simple btn-danger btn-icon remove"><i class="ti-clip"></i></a></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="card card-chat">
-                    <div class="card-header">
-                        <h4 class="card-title">Comments</h4>
-                        <p class="category"></p>
-                    </div>
-                    <div class="card-content">
-                        <ol class="chat">
-                            @foreach (var comment in Model.Comments)
-                            {
-                                <li class="other">
-                                    <div class="avatar">
-                                        <img src="@User.Identity.GetPic()" alt="crash" />
-                                    </div>
-                                    <div class="msg">
-                                        <p>
-                                            @comment.Comment
-                                        </p>
-                                        <div class="card-footer">
-                                            <i class="ti-check"></i>
-                                            <h6>@comment.Created</h6>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="card card-wizard" id="wizardCard">
+                    <form id="wizardForm" method="" action="">
+                        <div class="card-header text-center">
+                            <h4 class="card-title">Awesome Wizard</h4>
+                            <p class="category">Split a complicated flow in multiple steps</p>
+                        </div>
+                        <div class="card-content" style=" padding-left: 0px; padding-right: 0px;">
+                            <ul class="nav nav-justified nav-pills" style=" margin-left: 0px; margin-right: 0px;">
+                                <li><a href="#tab1" data-toggle="tab">Comments</a></li>
+                                <li><a href="#tab2" data-toggle="tab">History</a></li>
+                                <li><a href="#tab3" data-toggle="tab">Attachments</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane" id="tab1">
+                                    <div class="card card-chat">
+                                        <div class="card-header">
+                                            <h4 class="card-title">Comments</h4>
+                                            <p class="category"></p>
                                         </div>
                                         <div>
-                                            @Html.ActionLink("Edit", "Edit", "TicketComments", new { id = comment.Id }, null)
-                                            <span>|</span>
-                                            @Html.ActionLink("Delete", "Delete", "TicketComments", new { id = comment.Id }, null)
-                                        </div>
-                                    </div>
-                                </li>
-                            }
-                        </ol>
-                        <hr>
-                        <div class="send-message">
-                            @using (Html.BeginForm("Create", "TicketComments", FormMethod.Post))
-                            {
-                                if (User.Identity.IsAuthenticated)
-                                {
-                                    @Html.AntiForgeryToken()
-                                    @Html.Hidden("TicketId", Model.Id)
-                                    <div class="avatar">
-                                        <img src="@User.Identity.GetPic()" alt="crash" />
-                                    </div>
-                                    <input class="form-control textarea" type="text" placeholder="Type here!" name="Comment" />
+                                            <ol class="chat">
+                                                @foreach (var comment in Model.Comments)
+                                                {
+                                                    <li class="other">
+                                                        <div class="avatar">
+                                                            <img src="@User.Identity.GetPic()" alt="crash" />
+                                                        </div>
+                                                        <div class="msg">
+                                                            <p>
+                                                                @comment.Comment
+                                                            </p>
+                                                            <div class="card-footer">
+                                                                <i class="ti-check"></i>
+                                                                <h6>@comment.Created</h6>
+                                                            </div>
+                                                            <div>
+                                                                @Html.ActionLink("Edit", "Edit", "TicketComments", new { id = comment.Id }, null)
+                                                                <span>|</span>
+                                                                @Html.ActionLink("Delete", "Delete", "TicketComments", new { id = comment.Id }, null)
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                }
+                                            </ol>
+                                            <hr>
+                                            <div class="send-message">
+                                                @using (Html.BeginForm("Create", "TicketComments", FormMethod.Post))
+                                                {
+                                                    if (User.Identity.IsAuthenticated)
+                                                    {
+                                                        @Html.AntiForgeryToken()
+                                                        @Html.Hidden("TicketId", Model.Id)
+                                                        <div class="avatar">
+                                                            <img src="@User.Identity.GetPic()" alt="crash" />
+                                                        </div>
+                                                        <input class="form-control textarea" type="text" placeholder="Type here!" name="Comment" />
 
-                                    <div class="send-button">
-                                        <button class="btn btn-primary btn-fill" type="submit">Send</button>
+                                                        <div class="send-button">
+                                                            <button class="btn btn-primary btn-fill" type="submit">Send</button>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p>You must log in to leave a comment.</p>
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
                                     </div>
-                                }
-                                else
-                                {
-                                    <p>You must log in to leave a comment.</p>
-                                }
-                            }
+                                </div>
+                                <div class="tab-pane" id="tab2">
+                                    <div class="card card-timeline card-plain">
+                                        <div class="card-header">
+                                            <h2 class="card-title">Ticket History</h2>
+                                        </div>
+                                        <div class="card-content">
+                                            <ul class="timeline">
+                                                @foreach (var item in Model.Histories)
+                                                {
+                                                    <li class="timeline-inverted">
+                                                        <div class="timeline-badge info">
+                                                            <i class="ti-check-box"></i>
+                                                        </div>
+                                                        <div class="timeline-panel">
+                                                            <div class="timeline-heading">
+                                                                <span class="label label-success">Update</span>
+                                                            </div>
+                                                            <div class="timeline-body">
+                                                                <p>Title: @Html.DisplayFor(modelItem => item.Ticket.Title)</p>
+                                                                <p>Property: @Html.DisplayFor(modelItem => item.Property)</p>
+                                                                <p>Old Value: @Html.DisplayFor(modelItem => item.OldValue)</p>
+                                                                <p>New Value: @Html.DisplayFor(modelItem => item.NewValue)</p>
+                                                                <p>Updated by: @Html.DisplayFor(modelItem => item.User.FirstName)</p>
+                                                            </div>
+                                                            <h6>
+                                                                <i class="ti-time"></i>
+                                                                @Html.DisplayFor(modelItem => item.Changed)
+                                                            </h6>
+                                                        </div>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="tab3">
+                                    <h2 class="text-center text-space">Coming Soon!<br></h2>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-7">
-                <div class="card card-timeline card-plain">
-                    <div class="card-header">
-                        <h2 class="card-title">Ticket History</h2>
-                    </div>
-                    <div class="card-content">
-                        <ul class="timeline">
-                            @foreach (var item in Model.Histories)
-                            {
-                                <li class="timeline-inverted">
-                                    <div class="timeline-badge info">
-                                        <i class="ti-check-box"></i>
-                                    </div>
-                                    <div class="timeline-panel">
-                                        <div class="timeline-heading">
-                                            <span class="label label-success">Update</span>
-                                        </div>
-                                        <div class="timeline-body">
-                                            <p>Title: @Html.DisplayFor(modelItem => item.Ticket.Title)</p>
-                                            <p>Property: @Html.DisplayFor(modelItem => item.Property)</p>
-                                            <p>Old Value: @Html.DisplayFor(modelItem => item.OldValue)</p>
-                                            <p>New Value: @Html.DisplayFor(modelItem => item.NewValue)</p>
-                                            <p>Updated by: @Html.DisplayFor(modelItem => item.User.FirstName)</p>
-                                        </div>
-                                        <h6>
-                                            <i class="ti-time"></i>
-                                            @Html.DisplayFor(modelItem => item.Changed)
-                                        </h6>
-                                    </div>
-                                </li>
-                            }
-                        </ul>
-                    </div>
+                        <div class="card-footer">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

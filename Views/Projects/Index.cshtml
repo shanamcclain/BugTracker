@@ -1,9 +1,7 @@
 ﻿@model IEnumerable<BugTracker.Models.PMViewModel>
 
 <h2>All Projects</h2>
-<p>
-    @Html.ActionLink("My Projects", "MyProjects") | @Html.ActionLink("Create New Project", "Create")
-</p>
+
 <div class="content">
     <div class="container-fluid">
         <div class="row">
@@ -35,7 +33,7 @@
                                                 @Html.DisplayFor(modelItem => item.Project.Name)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.Project.Description)
+                                                @Html.Raw(item.Project.Description)
                                             </td>
 
                                             @if (item.PM == null)

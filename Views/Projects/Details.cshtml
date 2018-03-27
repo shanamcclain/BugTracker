@@ -3,7 +3,7 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-6 col-md-6">
+            <div class="col-md-8 col-md-offset-2">
                 <div class="card">
                     <div class="card-header">
                         <h2 class="card-title">
@@ -33,47 +33,11 @@
                                         @Html.DisplayFor(model => model.Name)
                                     </div>
                                     <div class="tab-pane" id="Description">
-                                        @Html.DisplayFor(model => model.Description)
+                                        @Html.Raw(Model.Description)
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">
-                            Tickets on Project
-                        </h2>
-                    </div>
-                    <div class="card-content">
-                        @foreach (var u in Model.Tickets)
-                        {
-                            <li>
-                                @u.Title
-                            </li>
-                        }
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-7">
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">Team Members on Project</h2>
-                    </div>
-                    <div class="card-content">
-
-                        @foreach (var u in Model.Users)
-                        {
-
-                            <li>
-                                @u.FirstName @u.LastName
-                            </li>
-                        }
-                        @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
-                        {
-                            @Html.ActionLink("Edit Users", "EditUsers", new { id = Model.Id })
-                        }
                     </div>
                 </div>
             </div>
@@ -81,15 +45,84 @@
     </div>
 </div>
 
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="card card-wizard" id="wizardCard">
+                    <form id="wizardForm" method="" action="">
+                        <div class="card-header text-center">
+                            <h4 class="card-title">Awesome Wizard</h4>
+                            <p class="category">Split a complicated flow in multiple steps</p>
+                        </div>
+                        <div class="card-content" style=" padding-left: 0px; padding-right: 0px;">
+                            <ul class="nav nav-justified nav-pills" style=" margin-left: 0px; margin-right: 0px;">
+                                <li><a href="#tab1" data-toggle="tab">Users</a></li>
+                                <li><a href="#tab2" data-toggle="tab">Tickets</a></li>
+                                @*<li><a href="#tab3" data-toggle="tab">Attachments</a></li>*@
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane" id="tab1">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h2 class="card-title">Team Members on Project</h2>
+                                            <p class="category"></p>
+                                        </div>
+                                        <div class="card-content">
+                                            @foreach (var u in Model.Users)
+                                            {
+
+                                                <li>
+                                                    @u.FirstName @u.LastName
+                                                </li>
+                                            }
+                                            <br />
+                                            @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
+                                            {
+                                                @Html.ActionLink("Edit Users", "EditUsers", new { id = Model.Id })
+                                            }
+                                            @if (User.IsInRole("Admin"))
+                                            {
+                                                @Html.ActionLink("Assign Pm", "AssignPm", "Projects", new { id = Model.Id }, null)
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="tab2">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h2 class="card-title">Tickets on Project</h2>
+                                        </div>
+                                        <div class="card-content">
+                                            @foreach (var u in Model.Tickets)
+                                            {
+                                                <li>
+                                                    @u.Title
+                                                </li>
+                                            }
+                                            <br />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <p>
-    @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
-    {
-        @Html.ActionLink("Create New Ticket", "Create", "Tickets", new { id = Model.Id }, null)
-    } |
-    @if (User.IsInRole("Admin"))
+    @*@if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
+        {
+            @Html.ActionLink("Create New Ticket", "Create", "Tickets", new { id = Model.Id }, null)
+        } |*@
+    @*@if (User.IsInRole("Admin"))
     {
         @Html.ActionLink("Assign Pm", "AssignPm", "Projects", new { id = Model.Id }, null)
-    } |
+    } |*@
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "MyProjects", "Projects", new { id = Model.Id }, null)
 </p>

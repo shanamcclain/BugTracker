@@ -16,6 +16,7 @@
     <!--  Paper Dashboard core CSS    -->
     <link href="~/Assets/assets/css/paper-dashboard.css" rel="stylesheet" />
 
+
     <link href="~/Assets/assets/css/custom.css" rel="stylesheet" />
 
     <!--  Fonts and icons     -->
@@ -118,10 +119,10 @@
                                 <li>
                                     @if (User.IsInRole("Admin"))
                                     {
-                                <a href="@Url.Action("AdminIndex", "Admin")">
-                                    <span class="sidebar-mini">A</span>
-                                    <span class="sidebar-normal">Admin Index</span>
-                                </a>
+                                        <a href="@Url.Action("AdminIndex", "Admin")">
+                                            <span class="sidebar-mini">A</span>
+                                            <span class="sidebar-normal">Admin Index</span>
+                                        </a>
                                     }
                                 </li>
                             </ul>
@@ -138,10 +139,13 @@
                         <div class="collapse" id="formsExamples">
                             <ul class="nav">
                                 <li>
-                                    <a href="@Url.Action("Index", "Projects")">
-                                        <span class="sidebar-mini">P</span>
-                                        <span class="sidebar-normal">All Projects</span>
-                                    </a>
+                                    @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
+                                    {
+                                        <a href="@Url.Action("Index", "Projects")">
+                                            <span class="sidebar-mini">P</span>
+                                            <span class="sidebar-normal">All Projects</span>
+                                        </a>
+                                    }
                                 </li>
                                 <li>
                                     <a href="@Url.Action("MyProjects", "Projects")">
@@ -150,10 +154,13 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="@Url.Action("Create", "Projects")">
-                                        <span class="sidebar-mini">CP</span>
-                                        <span class="sidebar-normal">Create Project</span>
-                                    </a>
+                                    @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
+                                    {
+                                        <a href="@Url.Action("Create", "Projects")">
+                                            <span class="sidebar-mini">CP</span>
+                                            <span class="sidebar-normal">Create Project</span>
+                                        </a>
+                                    }
                                 </li>
                             </ul>
                         </div>
@@ -181,16 +188,22 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="@Url.Action("Create", "Tickets")">
-                                        <span class="sidebar-mini">CT</span>
-                                        <span class="sidebar-normal">Create Ticket</span>
-                                    </a>
+                                    @if (User.IsInRole("Admin") || User.IsInRole("Submitter"))
+                                    {
+                                        <a href="@Url.Action("Create", "Tickets")">
+                                            <span class="sidebar-mini">CT</span>
+                                            <span class="sidebar-normal">Create Ticket</span>
+                                        </a>
+                                    }
                                 </li>
                                 <li>
-                                <a href="@Url.Action("OwnedTickets", "Tickets")">
-                                    <span class="sidebar-mini">OT</span>
-                                    <span class="sidebar-normal">Owned Tickets</span>
-                                </a>
+                                    @if (User.IsInRole("Admin") || User.IsInRole("Submitter"))
+                                    {
+                                        <a href="@Url.Action("OwnedTickets", "Tickets")">
+                                            <span class="sidebar-mini">OT</span>
+                                            <span class="sidebar-normal">Owned Tickets</span>
+                                        </a>
+                                    }
                                 </li>
                             </ul>
                         </div>
@@ -302,10 +315,10 @@
                     </div>
                     <div class="collapse navbar-collapse">
                         <form class="navbar-form navbar-left navbar-search-form" role="search">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                                <input type="text" value="" class="form-control" placeholder="Search...">
-                            </div>
+                            @*<div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                    <input type="text" value="" class="form-control" placeholder="Search...">
+                                </div>*@
                         </form>
                         <ul class="nav navbar-nav navbar-right">
                             <li>
@@ -327,12 +340,12 @@
                                     </p>
                                 </a>
                                 @*<ul class="dropdown-menu">
-                                    <li><a href="@Url.Action("Index", "TicketNotifications")">Notification 1</a></li>
-                                    <li><a href="#not2">Notification 2</a></li>
-                                    <li><a href="#not3">Notification 3</a></li>
-                                    <li><a href="#not4">Notification 4</a></li>
-                                    <li><a href="#another">Another notification</a></li>
-                                </ul>*@
+                                        <li><a href="@Url.Action("Index", "TicketNotifications")">Notification 1</a></li>
+                                        <li><a href="#not2">Notification 2</a></li>
+                                        <li><a href="#not3">Notification 3</a></li>
+                                        <li><a href="#not4">Notification 4</a></li>
+                                        <li><a href="#another">Another notification</a></li>
+                                    </ul>*@
                             </li>
                             <li>
                                 <a href="#settings" class="btn-rotate">
@@ -423,6 +436,8 @@
 <script src="~/Assets/assets/js/paper-dashboard.js"></script>
 <!-- Paper Dashboard PRO DEMO methods, don't include it in your project! -->
 <script src="~/Assets/assets/js/demo.js"></script>
+<script src="~/Scripts/tinymce/tinymce.min.js"></script>
+<script src="~/Scripts/tinymce/jquery.tinymce.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         demo.initOverviewDashboard();

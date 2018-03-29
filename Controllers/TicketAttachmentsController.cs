@@ -67,7 +67,7 @@ namespace BugTracker.Controllers
                     ticketAttachment.UserId = User.Identity.GetUserId();
                     db.Attachments.Add(ticketAttachment);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Details", "Ticket", new {id = ticketAttachment.TicketId});
                 }
             
             ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title", ticketAttachment.TicketId);

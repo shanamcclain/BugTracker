@@ -58,7 +58,7 @@ namespace BugTracker.Controllers
                 ticketComment.UserId = User.Identity.GetUserId();
                 db.Comments.Add(ticketComment);
                 db.SaveChanges();
-                return RedirectToAction("Details", "Tickets", new { id = ticketComment.TicketId});
+                return RedirectToAction("Details", "Tickets", new { id = ticketComment.TicketId });
             }
 
             ViewBag.TicketId = new SelectList(db.Tickets, "Id", "Title", ticketComment.TicketId);

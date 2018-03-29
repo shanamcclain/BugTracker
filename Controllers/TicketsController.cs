@@ -55,6 +55,14 @@ namespace BugTracker.Controllers
             return View(ticket);
         }
 
+        ////POST: Tickets/Details/5
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Details()
+        //{
+
+        //}
+
         // GET: Tickets/Create
         [Authorize(Roles = "Admin,Submitter")]
         public ActionResult Create()

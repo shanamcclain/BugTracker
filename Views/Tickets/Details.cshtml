@@ -63,11 +63,6 @@
                                             @Html.DisplayName("Updated"):
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="#Attachment" role="tab" data-toggle="tab">
-                                            @Html.DisplayName("Add Attachment"):
-                                        </a>
-                                    </li>
                                 </ul>
                             </div>
                             <div class="right-text-tabs">
@@ -99,9 +94,6 @@
                                     </div>
                                     <div class="tab-pane" id="Updated">
                                         <p>@Html.DisplayFor(model => model.Updated)</p>
-                                    </div>
-                                    <div class="tab-pane" id="Attachment">
-                                        <p><a href="@Url.Action("Create", "TicketAttachments", new { id = Model.Id })" class="btn btn-simple btn-danger btn-icon remove"><i class="ti-clip"></i></a></p>
                                     </div>
                                 </div>
                             </div>
@@ -150,120 +142,172 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-10 col-md-offset-1">
                 <div class="card card-wizard" id="wizardCard">
-                    <form id="wizardForm" method="" action="">
-                        <div class="card-header text-center">
-                            <h4 class="card-title">Awesome Wizard</h4>
-                            <p class="category">Split a complicated flow in multiple steps</p>
-                        </div>
-                        <div class="card-content" style=" padding-left: 0px; padding-right: 0px;">
-                            <ul class="nav nav-justified nav-pills" style=" margin-left: 0px; margin-right: 0px;">
-                                <li><a href="#tab1" data-toggle="tab">Comments</a></li>
-                                <li><a href="#tab2" data-toggle="tab">History</a></li>
-                                <li><a href="#tab3" data-toggle="tab">Attachments</a></li>
-                            </ul>
-                            <div class="tab-content">
-                                <div class="tab-pane" id="tab1">
-                                    <div class="card card-chat">
-                                        <div class="card-header">
-                                            <h4 class="card-title">Comments</h4>
-                                            <p class="category"></p>
-                                        </div>
-                                        <div>
-                                            <ol class="chat">
-                                                @foreach (var comment in Model.Comments)
-                                                {
-                                                    <li class="other">
-                                                        <div class="avatar">
-                                                            <img src="@User.Identity.GetPic()" alt="crash" />
+                    @*<form id="wizardForm" method="" action="">*@
+                    <div class="card-header text-center">
+                        <h4 class="card-title"></h4>
+                    </div>
+                    <div class="card-content" style=" padding-left: 0px; padding-right: 0px;">
+                        <ul class="nav nav-justified nav-pills" style=" margin-left: 0px; margin-right: 0px;">
+                            <li><a href="#tab1" data-toggle="tab">Comments</a></li>
+                            <li><a href="#tab2" data-toggle="tab">History</a></li>
+                            <li><a href="#tab3" data-toggle="tab">Attachments</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane" id="tab1">
+                                <div class="card card-chat">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Comments</h3>
+                                        <p class="category"></p>
+                                    </div>
+                                    <div>
+                                        <ol class="chat">
+                                            @foreach (var comment in Model.Comments)
+                                            {
+                                                <li class="other">
+                                                    <div class="avatar">
+                                                        <img src="@User.Identity.GetPic()" alt="crash" />
+                                                    </div>
+                                                    <div class="msg">
+                                                        <p>
+                                                            @comment.Comment
+                                                        </p>
+                                                        <div class="card-footer">
+                                                            <i class="ti-check"></i>
+                                                            <h6>@comment.Created</h6>
                                                         </div>
-                                                        <div class="msg">
-                                                            <p>
-                                                                @comment.Comment
-                                                            </p>
-                                                            <div class="card-footer">
-                                                                <i class="ti-check"></i>
-                                                                <h6>@comment.Created</h6>
-                                                            </div>
-                                                            <div>
-                                                                @Html.ActionLink("Edit", "Edit", "TicketComments", new { id = comment.Id }, null)
-                                                                <span>|</span>
-                                                                @Html.ActionLink("Delete", "Delete", "TicketComments", new { id = comment.Id }, null)
-                                                            </div>
+                                                        <div>
+                                                            @Html.ActionLink("Edit", "Edit", "TicketComments", new { id = comment.Id }, null)
+                                                            <span>|</span>
+                                                            @Html.ActionLink("Delete", "Delete", "TicketComments", new { id = comment.Id }, null)
                                                         </div>
-                                                    </li>
-                                                }
-                                            </ol>
-                                            <hr>
+                                                    </div>
+                                                </li>
+                                            }
+                                        </ol>
+                                        <hr>
+                                        @using (Html.BeginForm("Create", "TicketComments", FormMethod.Post))
+                                        {
                                             <div class="send-message">
-                                                @using (Html.BeginForm("Create", "TicketComments", FormMethod.Post))
-                                                {
-                                                    if (User.Identity.IsAuthenticated)
-                                                    {
-                                                        @Html.AntiForgeryToken()
-                                                        @Html.Hidden("TicketId", Model.Id)
-                                                        <div class="avatar">
-                                                            <img src="@User.Identity.GetPic()" alt="crash" />
-                                                        </div>
-                                                        <input class="form-control textarea" type="text" placeholder="Type here!" name="Comment" />
-
-                                                        <div class="send-button">
-                                                            <button class="btn btn-primary btn-fill" type="submit">Send</button>
-                                                        </div>
-                                                    }
-                                                    else
-                                                    {
-                                                        <p>You must log in to leave a comment.</p>
-                                                    }
-                                                }
+                                                @Html.AntiForgeryToken()
+                                                @Html.Hidden("TicketId", Model.Id)
+                                                <div class="avatar">
+                                                    <img src="@User.Identity.GetPic()" alt="crash" />
+                                                </div>
+                                                <input class="form-control textarea" type="text" placeholder="Type here!" name="Comment" />
+                                                <div class="send-button">
+                                                    <button class="btn btn-primary btn-fill" type="submit">Send</button>
+                                                </div>
                                             </div>
-                                        </div>
+                                        }
                                     </div>
                                 </div>
-                                <div class="tab-pane" id="tab2">
-                                    <div class="card card-timeline card-plain">
+                            </div>
+                            <div class="tab-pane" id="tab2">
+                                <div class="card card-timeline card-plain">
+                                    <div class="card-header">
+                                        <h3 class="card-title">History</h3>
+                                    </div>
+                                    <div class="card-content">
+                                        <ul class="timeline">
+                                            @foreach (var item in Model.Histories)
+                                            {
+                                                <li class="timeline-inverted">
+                                                    <div class="timeline-badge info">
+                                                        <i class="ti-check-box"></i>
+                                                    </div>
+                                                    <div class="timeline-panel">
+                                                        <div class="timeline-heading">
+                                                            <span class="label label-success">Update</span>
+                                                        </div>
+                                                        <div class="timeline-body">
+                                                            <p>Title: @Html.DisplayFor(modelItem => item.Ticket.Title)</p>
+                                                            <p>Property: @Html.DisplayFor(modelItem => item.Property)</p>
+                                                            <p>Old Value: @Html.DisplayFor(modelItem => item.OldValue)</p>
+                                                            <p>New Value: @Html.DisplayFor(modelItem => item.NewValue)</p>
+                                                            <p>Updated by: @Html.DisplayFor(modelItem => item.User.FirstName)</p>
+                                                        </div>
+                                                        <h6>
+                                                            <i class="ti-time"></i>
+                                                            @Html.DisplayFor(modelItem => item.Changed)
+                                                        </h6>
+                                                    </div>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tab3">
+                                <div class="card card-chat">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Attachments</h3>
+                                    </div>
+                                    <div>
+                                        <ol class="chat">
+                                            @foreach (var attachment in Model.Attachments)
+                                            {
+                                                <li class="other">
+                                                    <div class="msg" style=" max-height: 300px; max-width: 300px;">
+                                                        <p>
+                                                            <a href="@attachment.FileUrl"><img src="@attachment.FileUrl" alt="@attachment.Description" style="width: 100px; height: 100px;"></a>
+                                                        </p>
+                                                        <hr />
+                                                        <div class="card-footer">
+                                                            <p>Attachment By: @attachment.User.FullName</p>
+                                                            <p>Decription: @attachment.Description</p>
+                                                            <i class="ti-check"></i>
+                                                            <h6>@attachment.Created</h6>
+                                                        </div>
+                                                        <div>
+                                                            @Html.ActionLink("Edit", "Edit", "TicketAttachments", new { id = attachment.Id }, null)
+                                                            <span>|</span>
+                                                            @Html.ActionLink("Delete", "Delete", "TicketAttachments", new { id = attachment.Id }, null)
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            }
+                                        </ol>
+                                        <hr>
                                         <div class="card-header">
-                                            <h2 class="card-title">Ticket History</h2>
+                                            <h4 class="card-title">Add Attachment</h4>
                                         </div>
-                                        <div class="card-content">
-                                            <ul class="timeline">
-                                                @foreach (var item in Model.Histories)
+                                        <div class="send-message">
+                                            @using (Html.BeginForm("Create", "TicketAttachments", FormMethod.Post, new { enctype = "Multipart/form-data" }))
+                                            {
+                                                if (User.Identity.IsAuthenticated)
                                                 {
-                                                    <li class="timeline-inverted">
-                                                        <div class="timeline-badge info">
-                                                            <i class="ti-check-box"></i>
+                                                    @Html.AntiForgeryToken()
+                                                    @Html.Hidden("TicketId", Model.Id)
+                                                    <div class="col-md-12" style=" padding-bottom:10px;">
+                                                        <div>
+                                                            <input name="image" type="file" class="form-control textarea" id="fileUpload" />
                                                         </div>
-                                                        <div class="timeline-panel">
-                                                            <div class="timeline-heading">
-                                                                <span class="label label-success">Update</span>
-                                                            </div>
-                                                            <div class="timeline-body">
-                                                                <p>Title: @Html.DisplayFor(modelItem => item.Ticket.Title)</p>
-                                                                <p>Property: @Html.DisplayFor(modelItem => item.Property)</p>
-                                                                <p>Old Value: @Html.DisplayFor(modelItem => item.OldValue)</p>
-                                                                <p>New Value: @Html.DisplayFor(modelItem => item.NewValue)</p>
-                                                                <p>Updated by: @Html.DisplayFor(modelItem => item.User.FirstName)</p>
-                                                            </div>
-                                                            <h6>
-                                                                <i class="ti-time"></i>
-                                                                @Html.DisplayFor(modelItem => item.Changed)
-                                                            </h6>
+                                                    </div> 
+                                                    <div class="col-md-12" style=" padding-bottom:10px;">
+                                                        <div>
+                                                            <input class="form-control textarea" type="text" placeholder="Enter Description" name="Description" />
                                                         </div>
-                                                    </li>
+                                                    </div>
+                                                    <div class="send-button">
+                                                        <button class="btn btn-primary btn-fill" type="submit" value="create">Upload</button>
+                                                    </div>
                                                 }
-                                            </ul>
+                                                else
+                                                {
+                                                    <p>You must log in to add an attachment.</p>
+                                                }
+                                            }
                                         </div>
                                     </div>
-                                </div>
-                                <div class="tab-pane" id="tab3">
-                                    <h2 class="text-center text-space">Coming Soon!<br></h2>
                                 </div>
                             </div>
                         </div>
-                        <div class="card-footer">
-                        </div>
-                    </form>
+                    </div>
+                    <div class="card-footer">
+                    </div>
+                    @*</form>*@
                 </div>
             </div>
         </div>

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -70,7 +71,13 @@ namespace BugTracker.Models
                 {
                     return ImageFormat.Jpeg.Equals(img.RawFormat) ||
                            ImageFormat.Png.Equals(img.RawFormat) ||
-                           ImageFormat.Gif.Equals(img.RawFormat);
+                           ImageFormat.Bmp.Equals(img.RawFormat) ||
+                           ImageFormat.Gif.Equals(img.RawFormat) ||
+                           Path.GetExtension(file.FileName) == "pdf" ||
+                           Path.GetExtension(file.FileName) == "doc" ||
+                           Path.GetExtension(file.FileName) == "xls" ||
+                           Path.GetExtension(file.FileName) == "txt";
+
                 }
 
             }
@@ -103,6 +110,12 @@ namespace BugTracker.Models
         public string Phone { get; set; }
         [Required]
         public DateTime Created { get; set; }
+    }
+
+    public class TDViewModel
+    {
+        public ICollection<string> Comments { get; set; }
+        public ICollection<string> Attachments { get; set; }
     }
 
 }

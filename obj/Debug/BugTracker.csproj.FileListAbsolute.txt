@@ -81,4 +81,3 @@ C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\bin\M
 C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\obj\Debug\BugTracker.csproj.CoreCompileInputs.cache
 C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\obj\Debug\WebApplication1.dll
 C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\obj\Debug\WebApplication1.pdb
-C:\Users\Janis\Documents\Visual Studio 2017\projects\BugTracker\BugTracker\obj\Debug\BugTracker.csprojResolveAssemblyReference.cache

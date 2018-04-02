@@ -96,7 +96,7 @@
                                                     <a href="@Url.Action("Edit", "Tickets", new { id = item.Id })" class="btn btn-simple btn-warning btn-icon edit"><i class="ti-pencil-alt"></i></a>
                                                     <a href="@Url.Action("Delete", "Tickets", new { id = item.Id })" class="btn btn-simple btn-danger btn-icon remove"><i class="ti-trash"></i></a>
                                                 }
-                                                @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
+                                                @if (User.IsInRole("Admin"))
                                                 {
                                                     <a href="@Url.Action("EditPm", "Tickets", new { id = item.Id })" class="btn btn-simple btn-primary btn-icon edit"><i class="ti-user"></i></a>
 

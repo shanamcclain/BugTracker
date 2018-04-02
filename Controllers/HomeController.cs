@@ -40,7 +40,7 @@ namespace BugTracker.Controllers
             UserPageViewModel vm = new UserPageViewModel();
             var userid = User.Identity.GetUserId();
             var allProjects = db.Projects.Where(p => p.Tickets.Select(t => t.AssignedToUserId)
-           .Contains(userid) || p.Tickets.Select(t => t.OwnerUserId).Contains(userid)).ToList();
+           .Contains(userid) || p.Tickets.Select(t => t.OwnerUserId).Contains(userid) || p.PMID.Contains(userid)).ToList();
             var tickets = db.Tickets.Where(u => u.AssignedToUserId == userid).Include(t => t.AssignedToUser).Include(t => t.OwnerUser).Include(t => t.Project).Include(t => t.TicketPriority).Include(t => t.TicketStatus).Include(t => t.TicketType);
 
             vm.Projects = allProjects.Count();

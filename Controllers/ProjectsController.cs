@@ -41,13 +41,9 @@ namespace BugTracker.Controllers
         public ActionResult MyProjects()
         {
             var userid = User.Identity.GetUserId();
-            //var tickets = db.Tickets.Where(u => u.AssignedToUserId == userid);
-            //var allTickets = db.Projects.Where(p => p.PMID == userid).SelectMany(t => t.Tickets).ToList();
-            //var allTickets = db.Projects.Where(p => p.Users.Select(u=>u.Id).Contains(userid)).SelectMany(t => t.Tickets).ToList();
-            //var tickets = db.Tickets.Where(t => t.AssignedToUserId == userid || t.OwnerUserId == userid).ToList();
 
             var allProjects = db.Projects.Where(p => p.Tickets.Select(t => t.AssignedToUserId)
-            .Contains(userid) || p.Tickets.Select(t => t.OwnerUserId).Contains(userid)).ToList();
+            .Contains(userid) || p.Tickets.Select(t => t.OwnerUserId).Contains(userid) || p.PMID.Contains(userid)).ToList();
 
             return View(allProjects);
         }

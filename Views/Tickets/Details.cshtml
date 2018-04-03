@@ -124,7 +124,7 @@
                                 <!-- Tab panes -->
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="Description">
-                                        <p>@Html.DisplayFor(model => model.Description)</p>
+                                        <p>@Html.Raw(Model.Description)</p>
                                     </div>
                                 </div>
                             </div>
@@ -278,20 +278,22 @@
                                             {
                                                 if (User.Identity.IsAuthenticated)
                                                 {
-                                                    @Html.AntiForgeryToken()
-                                                    @Html.Hidden("TicketId", Model.Id)
-                                                    <div class="col-md-12" style=" padding-bottom:10px;">
-                                                        <div>
-                                                            <input name="image" type="file" class="form-control textarea" id="fileUpload" />
+                                                    <div class="send-message">
+                                                        @Html.AntiForgeryToken()
+                                                        @Html.Hidden("TicketId", Model.Id)
+                                                        <div class="col-md-12" style=" padding-bottom:10px;">
+                                                            <div>
+                                                                <input name="image" type="file" class="form-control textarea" id="fileUpload" />
+                                                            </div>
                                                         </div>
-                                                    </div> 
-                                                    <div class="col-md-12" style=" padding-bottom:10px;">
-                                                        <div>
-                                                            <input class="form-control textarea" type="text" placeholder="Enter Description" name="Description" />
+                                                        <div class="col-md-12" style=" padding-bottom:10px;">
+                                                            <div>
+                                                                <input class="form-control textarea" type="text" placeholder="Enter Description" name="Description" />
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="send-button">
-                                                        <button class="btn btn-primary btn-fill" type="submit" value="create">Upload</button>
+                                                        <div class="send-button">
+                                                            <button class="btn btn-primary btn-fill" type="submit">Upload</button>
+                                                        </div>
                                                     </div>
                                                 }
                                                 else

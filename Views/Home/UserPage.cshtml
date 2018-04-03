@@ -19,9 +19,11 @@
                             </h4>
                         </div>
                         <p class="description text-center">
-                            "I like the way you work it <br>
-                            No diggity <br>
-                            I wanna bag it up"
+                            "Good, better, best. Never let it rest. <br/>
+                            'Til your good is better <br/>
+                            and your better is best."<br/>
+                            - St. Jerome
+
                         </p>
                     </div>
                     <hr>
@@ -50,16 +52,17 @@
                     </div>
                     <div class="card-content">
                         <ul class="list-unstyled team-members">
-                            @foreach(var user in Model.AllMembers)
+                            @foreach (var user in Model.AllMembers)
                             {
-                            <li>
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <div class="avatar">
-                                            <img src="@user.ProfilePic" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                                <li>
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <div class="avatar">
+                                                <img src="@user.ProfilePic" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-xs-6">@user.UserName
+                                        <div class="col-xs-6">
+                                            @user.UserName
                                     </div>
                                     <div class="col-xs-3 text-right">
                                         @*<btn class="btn btn-sm btn-success btn-icon"><i class="fa fa-envelope"></i></btn>*@
@@ -67,7 +70,7 @@
                                 </div>
                             </li>
 
-                            }
+                        }
                         </ul>
                     </div>
                 </div>
@@ -99,6 +102,23 @@
                                         </div>
                                     </div>
                                 </div>
+                                @*<div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Change Password</label>
+                                        <div>
+                                            [
+                                            @if (Model.HasPassword)
+                                            {
+                                                @Html.ActionLink("Change your password", "ChangePassword", "Manage", new { }, null)
+                                            }
+                                            else
+                                            {
+                                                @Html.ActionLink("Create", "SetPassword")
+                                            }
+                                            ]
+                                        </div>
+                                    </div>
+                                </div>*@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">

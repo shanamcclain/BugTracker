@@ -143,8 +143,27 @@ namespace BugTracker.Controllers
                 {
                     if (prop.Name != null && prop.Name.In("Title", "Description", "TicketTypeId", "TicketPriorityId", "TicketStatusId", "AssignedToUserId"))
                     {
+                        var oldInt = oldTicket.GetType().GetProperty(prop.Name).GetValue(oldTicket);
+                        var newInt = ticket.GetType().GetProperty(prop.Name).GetValue(ticket);
+
                         var oldValue = oldTicket.GetType().GetProperty(prop.Name).GetValue(oldTicket).ToString();
                         var newValue = ticket.GetType().GetProperty(prop.Name).GetValue(ticket).ToString();
+
+                        if (prop.Name == "TicketTypeId")
+                        {
+                            oldValue = db.TicketTypes.Find(oldInt).Name;
+                            newValue = db.TicketTypes.Find(newInt).Name;
+                        }
+                        if (prop.Name == "TicketStatusId")
+                        {
+                            oldValue = db.TicketStatuses.Find(oldInt).Name;
+                            newValue = db.TicketStatuses.Find(newInt).Name;
+                        }
+                        if (prop.Name == "TicketPriorityId")
+                        {
+                            oldValue = db.TicketPriorities.Find(oldInt).Name;
+                            newValue = db.TicketPriorities.Find(newInt).Name;
+                        }
 
                         if (oldValue != newValue)
                         {

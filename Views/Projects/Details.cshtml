@@ -53,17 +53,17 @@
                 <div class="card card-wizard" id="wizardCard">
                     <form id="wizardForm" method="" action="">
                         <div class="card-header text-center">
-                            <h4 class="card-title">Awesome Wizard</h4>
-                            <p class="category">Split a complicated flow in multiple steps</p>
+                            @*<h4 class="card-title">Awesome Wizard</h4>
+                                <p class="category">Split a complicated flow in multiple steps</p>*@
                         </div>
                         <div class="card-content" style=" padding-left: 0px; padding-right: 0px;">
                             <ul class="nav nav-justified nav-pills" style=" margin-left: 0px; margin-right: 0px;">
-                                <li><a href="#tab1" data-toggle="tab">Users</a></li>
+                                <li class="active"><a href="#tab1" data-toggle="tab">Users</a></li>
                                 <li><a href="#tab2" data-toggle="tab">Tickets</a></li>
                                 @*<li><a href="#tab3" data-toggle="tab">Attachments</a></li>*@
                             </ul>
                             <div class="tab-content">
-                                <div class="tab-pane" id="tab1">
+                                <div class="tab-pane active" id="tab1">
                                     <div class="card">
                                         <div class="card-header">
                                             <h2 class="card-title">Team Members on Project</h2>
@@ -81,7 +81,7 @@
                                             @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager"))
                                             {
                                                 @Html.ActionLink("Edit Users", "EditUsers", new { id = Model.Id })
-                                            }
+                                            } |
                                             @if (User.IsInRole("Admin"))
                                             {
                                                 @Html.ActionLink("Assign Pm", "AssignPm", "Projects", new { id = Model.Id }, null)
@@ -102,6 +102,11 @@
                                                 </li>
                                             }
                                             <br />
+                                            @if (User.IsInRole("Admin"))
+                                            {
+                                                @Html.ActionLink("Create Ticket", "Create", "Tickets", new { id = Model.Id }, null)
+                                            }
+                                            <br />
                                         </div>
                                     </div>
                                 </div>
@@ -120,9 +125,9 @@
             @Html.ActionLink("Create New Ticket", "Create", "Tickets", new { id = Model.Id }, null)
         } |*@
     @*@if (User.IsInRole("Admin"))
-    {
-        @Html.ActionLink("Assign Pm", "AssignPm", "Projects", new { id = Model.Id }, null)
-    } |*@
+        {
+            @Html.ActionLink("Assign Pm", "AssignPm", "Projects", new { id = Model.Id }, null)
+        } |*@
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "MyProjects", "Projects", new { id = Model.Id }, null)
 </p>

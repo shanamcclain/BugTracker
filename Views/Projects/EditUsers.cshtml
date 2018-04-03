@@ -1,17 +1,30 @@
 ﻿@model BugTracker.Models.ProjectViewModel
-<h2>Edit Users</h2>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    @Html.HiddenFor(m => m.Project.Id)
-    @Html.HiddenFor(m => m.Project.Name)
-    <p>
-        @Html.ListBox("SelectedUsers", Model.Users)
-    </p>
-    <input type="submit" class="btn btn-primary">
-}
-
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title" style="text-align:center;">Edit Users</h2>
+                    </div>
+                    <div class="card-lock">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(m => m.Project.Id)
+                            @Html.HiddenFor(m => m.Project.Name)
+                            <p>
+                                @Html.ListBox("SelectedUsers", Model.Users)
+                            </p>
+                            <input type="submit" class="btn btn-primary">
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

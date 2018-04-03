@@ -40,14 +40,14 @@
                                             @Html.DisplayName("Title")
                                         </th>
                                         @*<th>
-                                            @Html.DisplayName("Description")
-                                        </th>*@
+                                                @Html.DisplayName("Description")
+                                            </th>*@
                                         <th>
                                             @Html.DisplayName("Created")
                                         </th>
                                         @*<th>
-                                            @Html.DisplayName("Updated")
-                                        </th>*@
+                                                @Html.DisplayName("Updated")
+                                            </th>*@
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -77,19 +77,24 @@
                                                 @Html.DisplayFor(modelItem => item.Title)
                                             </td>
                                             @*<td>
-                                                @Html.DisplayFor(modelItem => item.Description)
-                                            </td>*@
+                                                    @Html.DisplayFor(modelItem => item.Description)
+                                                </td>*@
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.Created)
                                             </td>
                                             @*<td>
-                                                @Html.DisplayFor(modelItem => item.Updated)
-                                            </td>*@
+                                                    @Html.DisplayFor(modelItem => item.Updated)
+                                                </td>*@
                                             <td>
                                                 @if (User.IsInRole("Admin") || User.IsInRole("ProjectManager") || User.IsInRole("Developer"))
                                                 {
                                                     <a href="@Url.Action("Details", "Tickets", new { id = item.Id })" class="btn btn-simple btn-info btn-icon like"><i class="ti-menu-alt"></i></a>
                                                     <a href="@Url.Action("Edit", "Tickets", new { id = item.Id })" class="btn btn-simple btn-warning btn-icon edit"><i class="ti-pencil-alt"></i></a>
+                                                }
+                                                @if (User.IsInRole("Admin"))
+                                                {
+                                                    <a href="@Url.Action("Delete", "Tickets", new { id = item.Id })" class="btn btn-simple btn-danger btn-icon remove"><i class="ti-trash"></i></a>
+
                                                 }
                                             </td>
                                         </tr>

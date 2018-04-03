@@ -7,11 +7,11 @@
             <div class="col-lg-6 col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="card-title">Change User's Role</h2>
-                        <h4>User's Name: @Model.User.DisplayName</h4>
+                        <h2 class="card-title" style="text-align:center;">Change User's Role</h2>
+                        <h4 style="text-align:center;">User's Name: @Model.User.DisplayName</h4>
                         @*<h4>User's Current Role: </h4>*@
                     </div>
-                    <div class="card-content">
+                    <div class="card-lock">
                         @using (Html.BeginForm())
                         {
                             @Html.AntiForgeryToken()

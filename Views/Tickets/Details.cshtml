@@ -224,8 +224,8 @@
                                                         <div class="timeline-body">
                                                             <p>Title: @Html.DisplayFor(modelItem => item.Ticket.Title)</p>
                                                             <p>Property: @Html.DisplayFor(modelItem => item.Property)</p>
-                                                            <p>Old Value: @Html.DisplayFor(modelItem => item.OldValue)</p>
-                                                            <p>New Value: @Html.DisplayFor(modelItem => item.NewValue)</p>
+                                                            <p>Old Value: @Html.Raw(item.OldValue)</p>
+                                                            <p>New Value: @Html.Raw(item.NewValue)</p>
                                                             <p>Updated by: @Html.DisplayFor(modelItem => item.User.FirstName)</p>
                                                         </div>
                                                         <h6>

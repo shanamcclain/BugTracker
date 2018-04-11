@@ -157,11 +157,11 @@
                         <div class="tab-content">
                             <div class="tab-pane active" id="tab1">
                                 <div class="card card-chat">
-                                    <div class="card-header">
-                                        <h3 class="card-title">Comments</h3>
-                                        <p class="category"></p>
-                                    </div>
-                                    <div>
+                                    <div style="height:350px; overflow-y:scroll;">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Comments</h3>
+                                            <p class="category"></p>
+                                        </div>
                                         <ol class="chat">
                                             @foreach (var comment in Model.Comments)
                                             {
@@ -186,26 +186,26 @@
                                                 </li>
                                             }
                                         </ol>
-                                        <hr>
-                                        @using (Html.BeginForm("Create", "TicketComments", FormMethod.Post))
-                                        {
-                                            <div class="send-message">
-                                                @Html.AntiForgeryToken()
-                                                @Html.Hidden("TicketId", Model.Id)
-                                                <div class="avatar">
-                                                    <img src="@User.Identity.GetPic()" alt="crash" />
-                                                </div>
-                                                <input class="form-control textarea" type="text" placeholder="Type here!" name="Comment" />
-                                                <div class="send-button">
-                                                    <button class="btn btn-primary btn-fill" type="submit">Send</button>
-                                                </div>
-                                            </div>
-                                        }
                                     </div>
+                                    <hr>
+                                    @using (Html.BeginForm("Create", "TicketComments", FormMethod.Post))
+                                    {
+                                        <div class="send-message">
+                                            @Html.AntiForgeryToken()
+                                            @Html.Hidden("TicketId", Model.Id)
+                                            <div class="avatar">
+                                                <img src="@User.Identity.GetPic()" alt="crash" />
+                                            </div>
+                                            <input class="form-control textarea" type="text" placeholder="Type here!" name="Comment" />
+                                            <div class="send-button">
+                                                <button class="btn btn-primary btn-fill" type="submit">Send</button>
+                                            </div>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                             <div class="tab-pane" id="tab2">
-                                <div class="card card-timeline card-chat">
+                                <div class="card card-timeline card-chat" style="height:600px; overflow-y:scroll;">
                                     <div class="card-header">
                                         <h3 class="card-title">History</h3>
                                     </div>
@@ -245,7 +245,7 @@
                                         <h3 class="card-title">Attachments</h3>
                                     </div>
                                     <div>
-                                        <ol class="chat">
+                                        <ol class="chat" style="height:450px; overflow-y:scroll;">
                                             @foreach (var attachment in Model.Attachments)
                                             {
                                                 <li class="other">

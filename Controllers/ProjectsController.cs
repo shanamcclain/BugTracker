@@ -200,7 +200,7 @@ namespace BugTracker.Controllers
                         EmailService ems = new EmailService();
                         IdentityMessage msg = new IdentityMessage();
                         ApplicationUser usr = db.Users.Find(user);
-                        msg.Body = "You have been assigned a new Ticket." + Environment.NewLine + "Please click the following link to view the details" + "<a href=\"" + callbackUrl + "\">NEW TICKET</a>";
+                        msg.Body = "You have been added to a Project." + Environment.NewLine + "Please click the following link to view the details" + "<a href=\"" + callbackUrl + "\">PROJECT</a>";
                         msg.Destination = usr.Email;
                         msg.Subject = "BugTracker";
                         await ems.SendMailAsync(msg);

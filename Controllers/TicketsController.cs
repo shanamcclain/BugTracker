@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using BugTracker.Models;
@@ -139,32 +140,42 @@ namespace BugTracker.Controllers
             if (ModelState.IsValid)
             {
                 var oldTicket = db.Tickets.AsNoTracking().FirstOrDefault(t => t.Id == ticket.Id);
+                //bool ticketAssigned = false;
                 foreach (var prop in typeof(Ticket).GetProperties())
                 {
                     if (prop.Name != null && prop.Name.In("Title", "Description", "TicketTypeId", "TicketPriorityId", "TicketStatusId", "AssignedToUserId"))
                     {
-                        var oldInt = oldTicket.GetType().GetProperty(prop.Name).GetValue(oldTicket);
-                        var newInt = ticket.GetType().GetProperty(prop.Name).GetValue(ticket);
+                        var oldPropId = oldTicket.GetType().GetProperty(prop.Name).GetValue(oldTicket);
+                        var newPropId = ticket.GetType().GetProperty(prop.Name).GetValue(ticket);
 
                         var oldValue = oldTicket.GetType().GetProperty(prop.Name).GetValue(oldTicket).ToString();
                         var newValue = ticket.GetType().GetProperty(prop.Name).GetValue(ticket).ToString();
 
                         if (prop.Name == "TicketTypeId")
                         {
-                            oldValue = db.TicketTypes.Find(oldInt).Name;
-                            newValue = db.TicketTypes.Find(newInt).Name;
+                            oldValue = db.TicketTypes.Find(oldPropId).Name;
+                            newValue = db.TicketTypes.Find(newPropId).Name;
                         }
                         if (prop.Name == "TicketStatusId")
                         {
-                            oldValue = db.TicketStatuses.Find(oldInt).Name;
-                            newValue = db.TicketStatuses.Find(newInt).Name;
+                            oldValue = db.TicketStatuses.Find(oldPropId).Name;
+                            newValue = db.TicketStatuses.Find(newPropId).Name;
                         }
                         if (prop.Name == "TicketPriorityId")
                         {
-                            oldValue = db.TicketPriorities.Find(oldInt).Name;
-                            newValue = db.TicketPriorities.Find(newInt).Name;
+                            oldValue = db.TicketPriorities.Find(oldPropId).Name;
+                            newValue = db.TicketPriorities.Find(newPropId).Name;
                         }
-
+                        //if (prop.Name == "AssignedToUserId")
+                        //{
+                        //    if (oldValue != newValue)
+                        //    {
+                        //        ticketAssigned = true;
+                        //        TicketEmail(ticket, newPropId.ToString());
+                        //    }
+                        //    oldValue = db.Users.Find(oldPropId).DisplayName;
+                        //    newValue = db.Users.Find(newPropId).DisplayName;
+                        //}
                         if (oldValue != newValue)
                         {
                             TicketHistory ticketHistory = new TicketHistory()
@@ -236,6 +247,7 @@ namespace BugTracker.Controllers
         [Authorize(Roles = "Admin,ProjectManager")]
         public ActionResult EditPm(int? id)
         {
+            UserRolesHelper urh = new UserRolesHelper();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -245,7 +257,7 @@ namespace BugTracker.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.AssignedToUserId = new SelectList(db.Users, "Id", "FirstName", ticket.AssignedToUserId);
+            ViewBag.AssignedToUserId = new SelectList(urh.UsersInRole("Developer"), "Id", "FirstName", ticket.AssignedToUserId);
             ViewBag.OwnerUserId = new SelectList(db.Users, "Id", "FirstName", ticket.OwnerUserId);
             ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name", ticket.ProjectId);
             ViewBag.TicketPriorityId = new SelectList(db.TicketPriorities, "Id", "Name", ticket.TicketPriorityId);
@@ -260,12 +272,29 @@ namespace BugTracker.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditPm([Bind(Include = "Id,Title,Description,Created,Updated,ProjectId,TicketTypeId,TicketPriorityId,TicketStatusId,OwnerUserId,AssignedToUserId")] Ticket ticket)
+        public async Task<ActionResult> EditPm([Bind(Include = "Id,AssignedToUserId")] Ticket ticket)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(ticket).State = EntityState.Modified;
+                //var oldTicket = db.Tickets.AsNoTracking().FirstOrDefault(t => t.Id == ticket.Id);
+
+
+
+                //        var oldPropId = oldTicket.Id;
+                //        var newPropId = ticket.GetType().GetProperty(prop.Name).GetValue(ticket);
+
+                //        var oldValue = oldTicket.GetType().GetProperty(prop.Name).GetValue(oldTicket).ToString();
+                //        var newValue = ticket.GetType().GetProperty(prop.Name).GetValue(ticket).ToString();
+
+                var tick = db.Tickets.Find(ticket.Id);
+                tick.AssignedToUserId = ticket.AssignedToUserId;
+
                 db.SaveChanges();
+
+                //Send Dev an email
+                await TicketEmail(ticket, tick.AssignedToUserId);
+
+
                 return RedirectToAction("Index");
             }
             ViewBag.AssignedToUserId = new SelectList(db.Users, "Id", "FirstName", ticket.AssignedToUserId);
@@ -275,6 +304,26 @@ namespace BugTracker.Controllers
             ViewBag.TicketStatusId = new SelectList(db.TicketStatuses, "Id", "Name", ticket.TicketStatusId);
             ViewBag.TicketTypeId = new SelectList(db.TicketTypes, "Id", "Name", ticket.TicketTypeId);
             return View(ticket);
+        }
+        private async Task<bool> TicketEmail(Ticket ticket, string userId)
+        {
+            var callbackUrl = Url.Action("Details", "Tickets", new { id = ticket.Id }, protocol: Request.Url.Scheme);
+            try
+            {
+                EmailService ems = new EmailService();
+                IdentityMessage msg = new IdentityMessage();
+                ApplicationUser usr = db.Users.Find(userId);
+                msg.Body = "You have been assigned a Ticket." + Environment.NewLine + "Please click the following link to view the details" + "<a href=\"" + callbackUrl + "\">NEW TICKET</a>";
+                msg.Destination = usr.Email;
+                msg.Subject = "BugTracker";
+                await ems.SendMailAsync(msg);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                await Task.FromResult(0);
+                return false;
+            }
         }
     }
 }
